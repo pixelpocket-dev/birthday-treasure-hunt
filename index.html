@@ -14,81 +14,198 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, #fff5f5 0%, transparent 35%),
-        radial-gradient(circle at bottom right, #ffe8eb 0%, transparent 35%),
-        #faf8f6;
-      color: #292525;
+      background: #080808;
+      color: #242020;
       font-family: Georgia, "Times New Roman", serif;
+
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 25px 16px;
+
+      padding: 35px 18px;
+
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* BIRTHDAY DECORATIONS */
+
+    body::before {
+      content:
+        "♥   ✦   ♥   🎀   ♥   ✦   ♥   🎈   ♥   ✦   ♥";
+      position: fixed;
+      top: 12px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+
+      color: #e63946;
+      font-size: 22px;
+      letter-spacing: 10px;
+
+      opacity: 0.9;
+      z-index: 0;
+    }
+
+    body::after {
+      content:
+        "♥   ✦   ♥   🎀   ♥   ✦   ♥   🎈   ♥   ✦   ♥";
+      position: fixed;
+      bottom: 12px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+
+      color: #e63946;
+      font-size: 22px;
+      letter-spacing: 10px;
+
+      opacity: 0.9;
+      z-index: 0;
+    }
+
+    .decoration {
+      position: fixed;
+      color: #e63946;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .decoration.one {
+      top: 12%;
+      left: 5%;
+      font-size: 34px;
+      transform: rotate(-15deg);
+    }
+
+    .decoration.two {
+      top: 22%;
+      right: 5%;
+      font-size: 27px;
+      transform: rotate(12deg);
+    }
+
+    .decoration.three {
+      top: 45%;
+      left: 3%;
+      font-size: 24px;
+    }
+
+    .decoration.four {
+      top: 52%;
+      right: 3%;
+      font-size: 35px;
+      transform: rotate(-10deg);
+    }
+
+    .decoration.five {
+      bottom: 23%;
+      left: 6%;
+      font-size: 27px;
+      transform: rotate(15deg);
+    }
+
+    .decoration.six {
+      bottom: 18%;
+      right: 6%;
+      font-size: 28px;
+      transform: rotate(-15deg);
     }
 
     .page {
       width: 100%;
       max-width: 620px;
+      position: relative;
+      z-index: 2;
     }
 
+    /* WHITE CARD */
+
     .card {
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid #eadcdd;
-      border-radius: 24px;
-      padding: 38px 28px 42px;
+      background: #ffffff;
+
+      border-radius: 28px;
+
+      padding: 48px 32px 50px;
+
       box-shadow:
-        0 12px 35px rgba(80, 40, 45, 0.10),
-        0 2px 8px rgba(80, 40, 45, 0.05);
+        0 0 0 2px rgba(230, 57, 70, 0.15),
+        0 18px 60px rgba(0, 0, 0, 0.65);
+
       text-align: center;
+
       position: relative;
       overflow: hidden;
     }
 
-    .card::before,
+    /* Decorative corner hearts */
+
+    .card::before {
+      content: "♥";
+      position: absolute;
+
+      top: -20px;
+      left: -8px;
+
+      font-size: 100px;
+      color: #e63946;
+
+      opacity: 0.08;
+
+      transform: rotate(-20deg);
+    }
+
     .card::after {
       content: "♥";
       position: absolute;
-      color: #e63946;
-      opacity: 0.10;
-      font-size: 75px;
-      line-height: 1;
-    }
 
-    .card::before {
-      top: -18px;
-      left: -8px;
-      transform: rotate(-15deg);
-    }
-
-    .card::after {
-      bottom: -18px;
+      bottom: -25px;
       right: -8px;
-      transform: rotate(15deg);
+
+      font-size: 110px;
+      color: #e63946;
+
+      opacity: 0.08;
+
+      transform: rotate(20deg);
     }
 
-    .heart {
-      font-size: 34px;
-      margin-bottom: 16px;
+    /* Small decorative line */
+
+    .top-decoration {
+      color: #e63946;
+      font-size: 22px;
+      letter-spacing: 8px;
+      margin-bottom: 25px;
     }
+
+    /* RED INTRODUCTORY STATEMENT */
 
     .statement {
       color: #d62839;
+
       font-size: 22px;
       font-weight: bold;
-      line-height: 1.45;
-      margin: 0 auto 28px;
+
+      line-height: 1.5;
+
+      margin: 0 auto 30px;
+
       position: relative;
-      z-index: 1;
+      z-index: 3;
     }
+
+    /* CLUE TEXT */
 
     .clue {
       position: relative;
-      z-index: 1;
+      z-index: 3;
     }
 
     .clue p {
       font-size: 18px;
       line-height: 1.9;
+
       margin: 0 0 22px;
     }
 
@@ -96,13 +213,20 @@
       margin-bottom: 0;
     }
 
+    /* RED DIVIDERS */
+
     .divider {
-      width: 70px;
+      width: 65px;
       height: 2px;
+
       background: #e63946;
-      opacity: 0.35;
-      margin: 28px auto;
+
+      opacity: 0.45;
+
+      margin: 27px auto;
     }
+
+    /* FINAL MESSAGE */
 
     .final-message {
       font-size: 19px;
@@ -113,14 +237,17 @@
       color: #d62839;
     }
 
+    /* MOBILE */
+
     @media (max-width: 600px) {
+
       body {
-        padding: 18px 12px;
+        padding: 32px 13px;
       }
 
       .card {
-        padding: 32px 21px 36px;
-        border-radius: 20px;
+        padding: 40px 21px 43px;
+        border-radius: 23px;
       }
 
       .statement {
@@ -132,8 +259,33 @@
         line-height: 1.85;
       }
 
-      .heart {
-        font-size: 30px;
+      .top-decoration {
+        font-size: 18px;
+        letter-spacing: 6px;
+      }
+
+      .decoration.one {
+        left: 2%;
+      }
+
+      .decoration.two {
+        right: 2%;
+      }
+
+      .decoration.three {
+        left: 1%;
+      }
+
+      .decoration.four {
+        right: 1%;
+      }
+
+      .decoration.five {
+        left: 2%;
+      }
+
+      .decoration.six {
+        right: 2%;
       }
     }
   </style>
@@ -141,23 +293,43 @@
 
 <body>
 
+  <!-- Birthday decorations around the page -->
+
+  <div class="decoration one">♥</div>
+  <div class="decoration two">✦</div>
+  <div class="decoration three">♥</div>
+  <div class="decoration four">🎀</div>
+  <div class="decoration five">✦</div>
+  <div class="decoration six">♥</div>
+
+
   <main class="page">
-    <div class="card" id="clue-container"></div>
+
+    <div class="card">
+
+      <div class="top-decoration">
+        ♥ ✦ ♥
+      </div>
+
+      <div id="clue-container"></div>
+
+    </div>
+
   </main>
+
 
   <script>
 
     const clues = {
 
       1: `
-        <div class="heart">🍃</div>
-
         <p class="statement">
           Ready or not...<br>
           your birthday adventure starts now! 🎉
         </p>
 
         <div class="clue">
+
           <p>
             Your clue is green and creamy too,<br>
             And there's a little surprise waiting for you.
@@ -176,17 +348,18 @@
             Think of something delicious, made with care,<br>
             Your first little treasure is waiting somewhere.
           </p>
+
         </div>
       `,
 
-      2: `
-        <div class="heart">🪞</div>
 
+      2: `
         <p class="statement">
           Look at you, making money! 😂
         </p>
 
         <div class="clue">
+
           <p>
             Well done! You found your next surprise,<br>
             But don't get too comfortable with the prize.
@@ -201,17 +374,18 @@
           <p>
             Your next little treasure is waiting there too. 👀
           </p>
+
         </div>
       `,
 
-      3: `
-        <div class="heart">💧</div>
 
+      3: `
         <p class="statement">
           Feeling thirsty yet? 😂💧
         </p>
 
         <div class="clue">
+
           <p>
             Your next clue is waiting where water flows,<br>
             but where it goes, nobody knows. 💧
@@ -223,17 +397,18 @@
             Follow the sound and take a look,<br>
             your next surprise is hiding in this nook. 👀
           </p>
+
         </div>
       `,
 
-      4: `
-        <div class="heart">🛏️</div>
 
+      4: `
         <p class="statement">
           You're on a roll, so don't delay!
         </p>
 
         <div class="clue">
+
           <p>
             Your next clue is hiding where I used to stay. ❤️
           </p>
@@ -250,17 +425,18 @@
           <p>
             Go find the room that was once mine...
           </p>
+
         </div>
       `,
 
-      5: `
-        <div class="heart">🛋️</div>
 
+      5: `
         <p class="statement">
           Well done! You found your way.
         </p>
 
         <div class="clue">
+
           <p>
             Now go find the place where your bum likes to stay,<br>
             when you're ready to relax at the end of the day. 😂
@@ -272,17 +448,18 @@
             Where you sit back, get comfy and stay,<br>
             especially when you've had a long day.
           </p>
+
         </div>
       `,
 
-      6: `
-        <div class="heart">👗</div>
 
+      6: `
         <p class="statement">
           You're getting closer, don't you know?
         </p>
 
         <div class="clue">
+
           <p>
             Now to somewhere your clothes like to go. 👗
           </p>
@@ -299,17 +476,18 @@
           <p>
             Go have a look where your clothes stay...
           </p>
+
         </div>
       `,
 
-      7: `
-        <div class="heart">🛏️</div>
 
+      7: `
         <p class="statement">
           Getting tired yet? 😂❤️
         </p>
 
         <div class="clue">
+
           <p>
             You're getting closer, don't stop the chase,<br>
             Your next clue is hiding in a very familiar place.
@@ -321,17 +499,18 @@
             It's somewhere soft where you rest your face,<br>
             And hopefully dream of winning this race.
           </p>
+
         </div>
       `,
 
-      8: `
-        <div class="heart">🌳</div>
 
+      8: `
         <p class="statement">
           Time to leave the bedroom behind... 🌳
         </p>
 
         <div class="clue">
+
           <p>
             Your next clue is waiting outside.
           </p>
@@ -342,17 +521,18 @@
             Look somewhere that gives a little shade,<br>
             Where nature has its own little parade.
           </p>
+
         </div>
       `,
 
-      9: `
-        <div class="heart">🔥</div>
 
+      9: `
         <p class="statement">
           The garden holds one last surprise! 🌳❤️
         </p>
 
         <div class="clue">
+
           <p>
             A birthday braai means fire and food,<br>
             Good drinks, good laughs and a birthday mood. 🎂🔥
@@ -364,17 +544,18 @@
             So where will the flames be burning bright,<br>
             And where will we celebrate your birthday tonight?
           </p>
+
         </div>
       `,
 
-      10: `
-        <div class="heart">❤️</div>
 
+      10: `
         <p class="statement">
           YOU FOUND IT! 🎉❤️
         </p>
 
         <div class="clue final-message">
+
           <p>
             I could have just handed you your birthday present,<br>
             but where's the fun in that? 😂
@@ -396,20 +577,28 @@
           <p>
             Now go get yourself some ink!
           </p>
+
         </div>
       `
 
     };
 
+
     const params = new URLSearchParams(window.location.search);
+
     const clueNumber = parseInt(params.get("clue"));
 
     const container = document.getElementById("clue-container");
 
+
     if (clues[clueNumber]) {
+
       container.innerHTML = clues[clueNumber];
+
     } else {
+
       container.innerHTML = clues[1];
+
     }
 
   </script>
