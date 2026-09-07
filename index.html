@@ -1,1680 +1,1036 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
->
-
-<title>Birthday Treasure Hunt ❤️</title>
-
-<style>
-
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
-}
-
-body {
-  min-height: 100vh;
-  min-height: 100dvh;
-
-  font-family: Georgia, "Times New Roman", serif;
-  color: #292525;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 18px 12px;
-
-  position: relative;
-  overflow: hidden;
-
-  transition: background 0.6s ease;
-}
-
-
-/* =========================================================
-   ORIGINAL COLOUR SCHEMES — LOCKED
-========================================================= */
-
-body.theme1 {
-  background: linear-gradient(135deg, #ffdce5, #fff3e8);
-}
-
-body.theme2 {
-  background: linear-gradient(135deg, #e8dcff, #ffdff0);
-}
-
-body.theme3 {
-  background: linear-gradient(135deg, #c9f3ff, #dfffe9);
-}
-
-body.theme4 {
-  background: linear-gradient(135deg, #ffe1cf, #ffd6e8);
-}
-
-body.theme5 {
-  background: linear-gradient(135deg, #ffd1c1, #ffe8b8);
-}
-
-body.theme6 {
-  background: linear-gradient(135deg, #e5d6ff, #ffd9f0);
-}
-
-body.theme7 {
-  background: linear-gradient(135deg, #d7efff, #e7ddff);
-}
-
-body.theme8 {
-  background: linear-gradient(135deg, #d9f5c8, #fff2b8);
-}
-
-body.theme9 {
-  background: linear-gradient(135deg, #ffd0a8, #ffb8a8);
-}
-
-body.theme10 {
-  background: linear-gradient(
-    135deg,
-    #ffcad8,
-    #ffd9e9,
-    #fff0c7
-  );
-}
-
-
-/* =========================================================
-   DECORATIONS
-========================================================= */
-
-.decorations {
-  position: fixed;
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  pointer-events: none;
-  overflow: hidden;
-
-  z-index: 1;
-}
-
-.decoration {
-  position: absolute;
-
-  user-select: none;
-  pointer-events: none;
-
-  animation:
-    floatAround var(--floatTime) ease-in-out infinite alternate,
-    sway var(--swayTime) ease-in-out infinite alternate;
-
-  animation-delay: var(--delay);
-
-  opacity: var(--opacity);
-
-  transform: rotate(var(--rotation));
-
-  filter:
-    drop-shadow(0 2px 2px rgba(0, 0, 0, 0.08));
-}
-
-@keyframes floatAround {
-
-  from {
-    transform:
-      translateY(0)
-      rotate(var(--rotation));
-  }
-
-  to {
-    transform:
-      translateY(-14px)
-      rotate(calc(var(--rotation) + 8deg));
-  }
-
-}
-
-@keyframes sway {
-
-  from {
-    margin-left: -8px;
-  }
-
-  to {
-    margin-left: 8px;
-  }
-
-}
-
-
-/* =========================================================
-   MAIN CARD
-========================================================= */
-
-.page {
-  width: 100%;
-  max-width: 620px;
-
-  position: relative;
-
-  z-index: 5;
-}
-
-.card {
-
-  width: 100%;
-
-  /*
-     TRANSPARENT / FROSTED LOOK
-     — one of the later changes we liked
-  */
-
-  background: rgba(255, 255, 255, 0.64);
-
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-
-  border-radius: 28px;
-
-  padding: 32px 23px 36px;
-
-  box-shadow:
-    0 15px 45px rgba(70, 30, 50, 0.14),
-    0 3px 10px rgba(70, 30, 50, 0.07);
-
-  text-align: center;
-
-  position: relative;
-
-  overflow: hidden;
-
-  border:
-    2px solid rgba(255, 255, 255, 0.78);
-}
-
-
-/* =========================================================
-   CARD CORNER DECORATIONS
-========================================================= */
-
-.card::before {
-
-  content: "✦";
-
-  position: absolute;
-
-  top: -24px;
-  left: -8px;
-
-  font-size: 105px;
-
-  color: var(--accent);
-
-  opacity: 0.13;
-
-  transform: rotate(-20deg);
-
-  pointer-events: none;
-}
-
-.card::after {
-
-  content: "✦";
-
-  position: absolute;
-
-  bottom: -30px;
-  right: -8px;
-
-  font-size: 115px;
-
-  color: var(--accent);
-
-  opacity: 0.13;
-
-  transform: rotate(20deg);
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   TOP DECORATION
-========================================================= */
-
-.top-decoration {
-
-  color: var(--accent);
-
-  font-size: 20px;
-
-  letter-spacing: 6px;
-
-  margin-bottom: 21px;
-
-  position: relative;
-
-  z-index: 6;
-}
-
-
-/* =========================================================
-   STATEMENT
-========================================================= */
-
-.statement {
-
-  color: var(--accent);
-
-  font-size: 22px;
-
-  font-weight: bold;
-
-  line-height: 1.45;
-
-  margin: 0 auto 24px;
-
-  position: relative;
-
-  z-index: 6;
-}
-
-
-/* =========================================================
-   CLUE
-========================================================= */
-
-.clue {
-
-  position: relative;
-
-  z-index: 6;
-}
-
-.clue p {
-
-  font-size: 17px;
-
-  line-height: 1.72;
-
-  margin: 0 0 18px;
-}
-
-.clue p:last-child {
-  margin-bottom: 0;
-}
-
-
-/* =========================================================
-   DIVIDERS
-========================================================= */
-
-.divider {
-
-  width: 58px;
-  height: 2px;
-
-  background: var(--accent);
-
-  opacity: 0.38;
-
-  margin: 21px auto;
-}
-
-
-/* =========================================================
-   FINAL PAGE
-========================================================= */
-
-.final-message {
-
-  font-size: 19px;
-
-  line-height: 1.65;
-}
-
-.final-message .statement {
-
-  font-size: 29px;
-}
-
-.final-message strong {
-
-  color: var(--accent);
-
-  font-size: 20px;
-}
-
-
-/* =========================================================
-   FIREWORKS
-========================================================= */
-
-.fireworks {
-
-  position: fixed;
-
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  pointer-events: none;
-
-  overflow: hidden;
-
-  z-index: 3;
-}
-
-.firework {
-
-  position: absolute;
-
-  width: 10px;
-  height: 10px;
-
-  border-radius: 50%;
-}
-
-.firework-spark {
-
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  width: 4px;
-  height: 24px;
-
-  border-radius: 50%;
-
-  background: var(--accent);
-
-  transform-origin: 50% 100%;
-
-  animation:
-    explode 1.55s ease-out forwards;
-}
-
-@keyframes explode {
-
-  0% {
-
-    opacity: 1;
-
-    transform:
-      translate(-50%, -50%)
-      rotate(var(--angle))
-      translateY(0)
-      scale(0.4);
-  }
-
-  55% {
-    opacity: 1;
-  }
-
-  100% {
-
-    opacity: 0;
-
-    transform:
-      translate(-50%, -50%)
-      rotate(var(--angle))
-      translateY(var(--distance))
-      scale(1);
-  }
-
-}
-
-
-/* =========================================================
-   MOBILE / SAMSUNG S22
-========================================================= */
-
-@media (max-width: 600px) {
-
-  body {
-
-    padding:
-      14px 10px;
-  }
-
-  .page {
-
-    max-width: 100%;
-  }
-
-  .card {
-
-    padding:
-      28px 20px 32px;
-
-    border-radius: 25px;
-
-    max-height:
-      calc(100dvh - 28px);
-
-    overflow-y: auto;
-  }
-
-  .top-decoration {
-
-    font-size: 19px;
-
-    letter-spacing: 5px;
-
-    margin-bottom: 19px;
-  }
-
-  .statement {
-
-    font-size: 22px;
-
-    line-height: 1.42;
-
-    margin-bottom: 23px;
-  }
-
-  .clue p {
-
-    font-size: 17px;
-
-    line-height: 1.72;
-
-    margin-bottom: 17px;
-  }
-
-  .divider {
-
-    margin:
-      19px auto;
-  }
-
-  .final-message {
-
-    font-size: 19px;
-
-    line-height: 1.6;
-  }
-
-  .final-message .statement {
-
-    font-size: 29px;
-  }
-
-}
-
-
-/* =========================================================
-   VERY SHORT PHONE SCREEN
-========================================================= */
-
-@media (max-height: 680px) {
-
-  body {
-    padding: 10px;
-  }
-
-  .card {
-
-    padding:
-      23px 18px 27px;
-  }
-
-  .top-decoration {
-
-    margin-bottom: 15px;
-  }
-
-  .statement {
-
-    font-size: 21px;
-
-    margin-bottom: 18px;
-  }
-
-  .clue p {
-
-    font-size: 17px;
-
-    line-height: 1.58;
-
-    margin-bottom: 14px;
-  }
-
-  .divider {
-
-    margin:
-      16px auto;
-  }
-
-}
-
-
-/* =========================================================
-   TINY HEIGHT SAFETY
-========================================================= */
-
-@media (max-height: 560px) {
-
-  .card {
-
-    padding:
-      18px 16px 22px;
-  }
-
-  .top-decoration {
-
-    font-size: 17px;
-
-    margin-bottom: 11px;
-  }
-
-  .statement {
-
-    font-size: 20px;
-
-    margin-bottom: 14px;
-  }
-
-  .clue p {
-
-    font-size: 16px;
-
-    line-height: 1.5;
-
-    margin-bottom: 11px;
-  }
-
-  .divider {
-
-    margin:
-      12px auto;
-  }
-
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Treasure Hunt</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      width: 100%;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+      transition: background 0.5s ease;
+      color: #333;
+    }
+
+    /* =========================================================
+       LOCKED COLOUR THEMES
+       ========================================================= */
+
+    /* 1 — Pink + Coral */
+    body.theme1 {
+      --accent: #e84f6b;
+      --accent-soft: #ff7c72;
+      background: linear-gradient(135deg, #ffd2df 0%, #ffaea2 100%);
+    }
+
+    /* 2 — Purple + Pink */
+    body.theme2 {
+      --accent: #8d49b8;
+      --accent-soft: #dc6fa8;
+      background: linear-gradient(135deg, #cdb4ff 0%, #f4b7d3 100%);
+    }
+
+    /* 3 — Blue + Turquoise */
+    body.theme3 {
+      --accent: #078cac;
+      --accent-soft: #20bfa9;
+      background: linear-gradient(135deg, #b6e2ff 0%, #aaf0e2 100%);
+    }
+
+    /* 4 — Peach + Pink */
+    body.theme4 {
+      --accent: #df6f59;
+      --accent-soft: #d96c96;
+      background: linear-gradient(135deg, #ffd0ae 0%, #f7bdd3 100%);
+    }
+
+    /* 5 — Red + Orange */
+    body.theme5 {
+      --accent: #d84232;
+      --accent-soft: #ef7d32;
+      background: linear-gradient(135deg, #ffaaa2 0%, #ffc56f 100%);
+    }
+
+    /* 6 — Lavender + Pink */
+    body.theme6 {
+      --accent: #8b68bd;
+      --accent-soft: #d97eb0;
+      background: linear-gradient(135deg, #d8c8ff 0%, #f5c3de 100%);
+    }
+
+    /* 7 — Baby Blue + Lilac */
+    body.theme7 {
+      --accent: #6974bd;
+      --accent-soft: #9c7fc9;
+      background: linear-gradient(135deg, #c8eaff 0%, #dfd0f5 100%);
+    }
+
+    /* 8 — Green + Yellow */
+    body.theme8 {
+      --accent: #529f35;
+      --accent-soft: #d1ad22;
+      background: linear-gradient(135deg, #c7ecaa 0%, #fff0a0 100%);
+    }
+
+    /* 9 — Orange + Red */
+    body.theme9 {
+      --accent: #df4f31;
+      --accent-soft: #f38b32;
+      background: linear-gradient(135deg, #ffc16f 0%, #ff9486 100%);
+    }
+
+    /* 10 — Pink + Red + Silver */
+    body.theme10 {
+      --accent: #c72b4d;
+      --accent-soft: #e66a89;
+      --silver: #a9afb8;
+      background:
+        linear-gradient(
+          135deg,
+          #ffc0d0 0%,
+          #ff9eb7 42%,
+          #f3f3f6 100%
+        );
+    }
+
+    /* =========================================================
+       PAGE
+       ========================================================= */
+
+    .page {
+      position: relative;
+      min-height: 100svh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding:
+        max(24px, env(safe-area-inset-top))
+        19px
+        max(24px, env(safe-area-inset-bottom));
+      overflow: hidden;
+    }
+
+    /* =========================================================
+       CARD
+       ========================================================= */
+
+    .card {
+      position: relative;
+      z-index: 20;
+      width: 100%;
+      max-width: 390px;
+      padding: 34px 25px;
+      border-radius: 28px;
+
+      background: rgba(255, 255, 255, 0.66);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      border: 1px solid rgba(255, 255, 255, 0.72);
+
+      box-shadow:
+        0 16px 45px rgba(0, 0, 0, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+      text-align: center;
+    }
+
+    .statement {
+      margin-bottom: 22px;
+      font-size: 22px;
+      line-height: 1.28;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .clue {
+      font-size: 17px;
+      line-height: 1.65;
+      font-weight: 500;
+      white-space: pre-line;
+    }
+
+    /* Final screen */
+
+    .final-card {
+      padding-top: 38px;
+      padding-bottom: 38px;
+    }
+
+    .final-card .statement {
+      font-size: 29px;
+      line-height: 1.2;
+      margin-bottom: 22px;
+    }
+
+    .final-card .clue {
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       DECORATIONS
+       ========================================================= */
+
+    .decor {
+      position: absolute;
+      z-index: 5;
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+      opacity: 0.94;
+      filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.08));
+      animation: floatAround var(--float-speed, 5s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      transform-origin: center;
+    }
+
+    .decor.soft {
+      opacity: 0.74;
+    }
+
+    @keyframes floatAround {
+      0%,
+      100% {
+        transform:
+          translate3d(0, 0, 0)
+          rotate(var(--start-rotate, -4deg))
+          scale(var(--scale, 1));
+      }
+
+      50% {
+        transform:
+          translate3d(
+            var(--move-x, 7px),
+            var(--move-y, -12px),
+            0
+          )
+          rotate(var(--end-rotate, 5deg))
+          scale(var(--scale, 1));
+      }
+    }
+
+    /* Keep the decorative objects safely around the edges
+       of a Galaxy S22-sized screen */
+
+    .d1  { top: 3%;  left: 4%;   font-size: 34px; }
+    .d2  { top: 6%;  right: 6%;  font-size: 28px; }
+    .d3  { top: 14%; left: 2%;   font-size: 27px; }
+    .d4  { top: 19%; right: 2%;  font-size: 33px; }
+
+    .d5  { top: 31%; left: 1%;   font-size: 23px; }
+    .d6  { top: 37%; right: 1%;  font-size: 25px; }
+
+    .d7  { top: 49%; left: 2%;   font-size: 22px; }
+    .d8  { top: 55%; right: 2%;  font-size: 26px; }
+
+    .d9  { top: 66%; left: 1%;   font-size: 29px; }
+    .d10 { top: 70%; right: 2%;  font-size: 23px; }
+
+    .d11 { bottom: 17%; left: 5%;   font-size: 29px; }
+    .d12 { bottom: 12%; right: 5%;  font-size: 32px; }
+
+    .d13 { bottom: 5%; left: 9%;    font-size: 25px; }
+    .d14 { bottom: 3%; right: 9%;   font-size: 28px; }
+
+    .d15 { top: 9%; left: 36%;      font-size: 21px; }
+    .d16 { bottom: 7%; left: 42%;   font-size: 21px; }
+
+    .d17 { top: 25%; left: 4%;      font-size: 19px; }
+    .d18 { top: 76%; right: 3%;     font-size: 20px; }
+
+    .d19 { top: 2%; left: 66%;      font-size: 19px; }
+    .d20 { bottom: 2%; left: 66%;   font-size: 19px; }
+
+    /* Tiny decorative circles/confetti */
+
+    .confetti-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.35;
+      font-size: 0;
+    }
+
+    .confetti-dot:nth-of-type(even) {
+      background: var(--accent-soft);
+    }
+
+    /* =========================================================
+       FIREWORKS
+       ========================================================= */
+
+    .fireworks-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      pointer-events: none;
+    }
+
+    .spark {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 5px;
+      height: 32px;
+      border-radius: 99px;
+      transform-origin: 50% 100%;
+      opacity: 0;
+      animation: explodeSpark 1.35s ease-out forwards;
+    }
+
+    .spark.red {
+      background: #d72f4e;
+    }
+
+    .spark.pink {
+      background: #ff7fa1;
+    }
+
+    .spark.silver {
+      background: #bcc1c8;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+    }
+
+    .spark.white {
+      background: #ffffff;
+      box-shadow: 0 0 7px rgba(255, 255, 255, 1);
+    }
+
+    @keyframes explodeSpark {
+      0% {
+        opacity: 1;
+        transform:
+          rotate(var(--angle))
+          translateY(0)
+          scaleY(0.35);
+      }
+
+      55% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          rotate(var(--angle))
+          translateY(-115px)
+          scaleY(0.85);
+      }
+    }
+
+    .flash {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      box-shadow:
+        0 0 18px white,
+        0 0 32px rgba(255, 110, 145, 0.9);
+      animation: flashPop 0.5s ease-out forwards;
+    }
+
+    @keyframes flashPop {
+      from {
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 1;
+      }
+
+      to {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+      }
+    }
+
+    /* =========================================================
+       SMALLER PHONE HEIGHTS
+       ========================================================= */
+
+    @media (max-height: 740px) {
+      .card {
+        padding: 27px 23px;
+      }
+
+      .statement {
+        margin-bottom: 17px;
+      }
+
+      .clue {
+        font-size: 16px;
+        line-height: 1.53;
+      }
+
+      .final-card .statement {
+        font-size: 27px;
+      }
+
+      .final-card .clue {
+        font-size: 18px;
+      }
+
+      .decor {
+        transform: scale(0.94);
+      }
+    }
+
+    /* Galaxy S22 / common phone widths */
+
+    @media (max-width: 380px) {
+      .page {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .card {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+    }
+
+  </style>
 </head>
-
 
 <body>
 
+  <main class="page">
+
+    <div id="decorations"></div>
+
+    <section class="card" id="clueCard">
+      <div class="statement" id="statement"></div>
+      <div class="clue" id="clueText"></div>
+    </section>
+
+  </main>
+
+  <div class="fireworks-layer" id="fireworksLayer"></div>
+
+
+  <script>
+
+    /* =========================================================
+       CLUES
+       ========================================================= */
+
+    const clues = {
+
+      1: {
+        theme: "theme1",
+        statement:
+          "Ready or not...<br>your birthday adventure starts now! 🎉",
+        text:
+`Your clue is green and creamy too,
+And there's a little surprise waiting for you.
+
+It's made with love, especially for you,
+A little something tasty, a little something new.
+
+Think of something delicious, made with care,
+Your first little treasure is waiting somewhere.`
+      },
+
+      2: {
+        theme: "theme2",
+        statement:
+          "Look at you, making money! 😂",
+        text:
+`Well done! You found your next surprise,
+But don't get too comfortable with the prize.
+
+Now go somewhere that has a view of you.
+
+Your next little treasure is waiting there too. 👀`
+      },
+
+      3: {
+        theme: "theme3",
+        statement:
+          "Feeling thirsty yet? 😂💧",
+        text:
+`Your next clue is waiting where water flows,
+but where it goes, nobody knows. 💧
+
+Follow the sound and take a look,
+your next surprise is hiding in this nook. 👀`
+      },
+
+      4: {
+        theme: "theme4",
+        statement:
+          "You're on a roll, so don't delay!",
+        text:
+`Your next clue is hiding where I used to stay. ❤️
 
-<!-- =======================================================
-     RANDOM BIRTHDAY DECORATIONS
-======================================================== -->
+A room that holds a little history,
+and maybe a memory or two of me. 😂
+
+Go find the room that was once mine...`
+      },
 
-<div
-  class="decorations"
-  id="decorations">
-</div>
+      5: {
+        theme: "theme5",
+        statement:
+          "Well done! You found your way.",
+        text:
+`Now go find the place where your bum likes to stay,
+when you're ready to relax at the end of the day. 😂
 
+Where you sit back, get comfy and stay,
+especially when you've had a long day.`
+      },
 
-<!-- =======================================================
-     FIREWORKS
-======================================================== -->
+      6: {
+        theme: "theme6",
+        statement:
+          "You're getting closer, don't you know?",
+        text:
+`Now to somewhere your clothes like to go. 👗
 
-<div
-  class="fireworks"
-  id="fireworks">
-</div>
+Dresses and shirts all hiding away,
+waiting for you to choose them one day. 😂
 
+Go have a look where your clothes stay...`
+      },
 
-<!-- =======================================================
-     PAGE
-======================================================== -->
+      7: {
+        theme: "theme7",
+        statement:
+          "Getting tired yet? 😂❤️",
+        text:
+`You're getting closer, don't stop the chase,
+Your next clue is hiding in a very familiar place.
 
-<main class="page">
+It's somewhere soft where you rest your face, 
+And hopefully dream of winning this race.`
+      },
 
-  <div class="card">
-
-    <div class="top-decoration">
-      ✦ 🎉 ✦
-    </div>
-
-    <div id="clue-container"></div>
-
-  </div>
-
-</main>
-
-
-<script>
-
-
-/* =========================================================
-   CLUES
-========================================================= */
-
-const clues = {
-
-
-  1: `
-
-    <p class="statement">
-      Ready or not...<br>
-      your birthday adventure starts now! 🎉
-    </p>
-
-    <div class="clue">
-
-      <p>
-        Your clue is green and creamy too,<br>
-        And there's a little surprise waiting for you.
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        It's made with love, especially for you,<br>
-        A little something tasty, a little something new.
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        Think of something delicious, made with care,<br>
-        Your first little treasure is waiting somewhere.
-      </p>
-
-    </div>
-
-  `,
-
-
-  2: `
-
-    <p class="statement">
-      Look at you, making money! 😂
-    </p>
-
-    <div class="clue">
-
-      <p>
-        Well done! You found your next surprise,<br>
-        But don't get too comfortable with the prize.
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        Now go somewhere that has a view of you.
-      </p>
-
-      <p>
-        Your next little treasure is waiting there too. 👀
-      </p>
-
-    </div>
-
-  `,
-
-
-  3: `
-
-    <p class="statement">
-      Feeling thirsty yet? 😂💧
-    </p>
-
-    <div class="clue">
-
-      <p>
-        Your next clue is waiting where water flows,<br>
-        but where it goes, nobody knows. 💧
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        Follow the sound and take a look,<br>
-        your next surprise is hiding in this nook. 👀
-      </p>
-
-    </div>
-
-  `,
-
-
-  4: `
-
-    <p class="statement">
-      You're on a roll, so don't delay!
-    </p>
-
-    <div class="clue">
-
-      <p>
-        Your next clue is hiding where I used to stay. ❤️
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        A room that holds a little history,<br>
-        and maybe a memory or two of me. 😂
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        Go find the room that was once mine...
-      </p>
-
-    </div>
-
-  `,
-
-
-  5: `
-
-    <p class="statement">
-      Well done! You found your way.
-    </p>
-
-    <div class="clue">
-
-      <p>
-        Now go find the place where your bum likes to stay,<br>
-        when you're ready to relax at the end of the day. 😂
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        Where you sit back, get comfy and stay,<br>
-        especially when you've had a long day.
-      </p>
-
-    </div>
-
-  `,
-
-
-  6: `
-
-    <p class="statement">
-      You're getting closer, don't you know?
-    </p>
-
-    <div class="clue">
-
-      <p>
-        Now to somewhere your clothes like to go. 👗
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        Dresses and shirts all hiding away,<br>
-        waiting for you to choose them one day. 😂
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        Go have a look where your clothes stay...
-      </p>
-
-    </div>
-
-  `,
-
-
-  7: `
-
-    <p class="statement">
-      Getting tired yet? 😂❤️
-    </p>
-
-    <div class="clue">
-
-      <p>
-        You're getting closer, don't stop the chase,<br>
-        Your next clue is hiding in a very familiar place.
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        It's somewhere soft where you rest your face,<br>
-        And hopefully dream of winning this race.
-      </p>
-
-    </div>
-
-  `,
-
-
-  8: `
-
-    <p class="statement">
-      Time to leave the bedroom behind... 🌳
-    </p>
-
-    <div class="clue">
-
-      <p>
-        Your next clue is waiting outside.
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        Look somewhere that gives a little shade,<br>
-        Where nature has its own little parade.
-      </p>
-
-    </div>
-
-  `,
-
-
-  9: `
-
-    <p class="statement">
-      The garden holds one last surprise! 🌳❤️
-    </p>
-
-    <div class="clue">
-
-      <p>
-        A birthday braai means fire and food,<br>
-        Good drinks, good laughs and a birthday mood. 🎂🔥
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        So where will the flames be burning bright,<br>
-        And where will we celebrate your birthday tonight?
-      </p>
-
-    </div>
-
-  `,
-
-
-  10: `
-
-    <p class="statement">
-      YOU FOUND IT! 🎉❤️
-    </p>
-
-    <div class="clue final-message">
-
-      <p>
-        I could have just handed you your birthday present,<br>
-        but where's the fun in that? 😂
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        This is a little something towards<br>
-        the tattoo you've been wanting. 🖤
-      </p>
-
-      <div class="divider"></div>
-
-      <p>
-        <strong>
-          Happy Birthday! ❤️🎀
-        </strong>
-      </p>
-
-      <p>
-        Now go get yourself some ink!
-      </p>
-
-    </div>
-
-  `
-
-};
-
-
-/* =========================================================
-   ORIGINAL ACCENT COLOURS — LOCKED
-========================================================= */
-
-const themes = {
-
-  1: "#e63946",
-
-  2: "#9b5de5",
-
-  3: "#00a6c7",
-
-  4: "#e76f51",
-
-  5: "#e85d04",
-
-  6: "#9b5de5",
-
-  7: "#6c63c7",
-
-  8: "#55a630",
-
-  9: "#e85d04",
-
-  10: "#d62839"
-
-};
-
-
-/* =========================================================
-   DECORATION COLLECTION
-========================================================= */
-
-const decorationSets = {
-
-
-  1: [
-    "🎈",
-    "🎀",
-    "🎁",
-    "🎉",
-    "🎊",
-    "✨",
-    "✦",
-    "★",
-    "❤️",
-    "💗",
-    "💃",
-    "🕺",
-    "🎵",
-    "🍹",
-    "🥂"
-  ],
-
-
-  2: [
-    "🎈",
-    "🎀",
-    "🎁",
-    "🎉",
-    "🎊",
-    "✨",
-    "✦",
-    "★",
-    "💜",
-    "💗",
-    "💃",
-    "🕺",
-    "🎵",
-    "🍹",
-    "🥂"
-  ],
-
-
-  3: [
-    "💧",
-    "🎈",
-    "🎀",
-    "🎁",
-    "🎉",
-    "✨",
-    "✦",
-    "💙",
-    "💚",
-    "💃",
-    "🕺",
-    "🎵",
-    "🍹",
-    "🥂"
-  ],
-
-
-  4: [
-    "🎈",
-    "🎀",
-    "🎁",
-    "🎉",
-    "🎊",
-    "✨",
-    "✦",
-    "★",
-    "❤️",
-    "💗",
-    "💃",
-    "🕺",
-    "🎵",
-    "🍹",
-    "🥂"
-  ],
-
-
-  5: [
-    "🎈",
-    "🎀",
-    "🎁",
-    "🎉",
-    "🎂",
-    "🎊",
-    "✨",
-    "✦",
-    "🧡",
-    "💗",
-    "💃",
-    "🕺",
-    "🎵",
-    "🍹",
-    "🥂",
-    "🍻"
-  ],
-
-
-  6: [
-    "🎈",
-    "🎀",
-    "🎁",
-    "🎉",
-    "🎊",
-    "✨",
-    "✦",
-    "★",
-    "💜",
-    "💗",
-    "💃",
-    "🕺",
-    "🎵",
-    "🍹",
-    "🥂"
-  ],
-
-
-  7: [
-    "🎈",
-    "🎀",
-    "🎁",
-    "🎉",
-    "✨",
-    "✦",
-    "★",
-    "❤️",
-    "💜",
-    "💃",
-    "🕺",
-    "🎵",
-    "🍹",
-    "🥂"
-  ],
-
-
-  8: [
-    "🌳",
-    "🌿",
-    "🍃",
-    "🎈",
-    "🎀",
-    "🎁",
-    "🎉",
-    "✨",
-    "✦",
-    "💚",
-    "💃",
-    "🕺",
-    "🎵",
-    "🍹",
-    "🥂"
-  ],
-
-
-  9: [
-    "🌳",
-    "🔥",
-    "🎂",
-    "🎈",
-    "🎀",
-    "🎁",
-    "🎉",
-    "🎊",
-    "✨",
-    "✦",
-    "❤️",
-    "💃",
-    "🕺",
-    "🎵",
-    "🍹",
-    "🥂",
-    "🍻"
-  ],
-
-
-  10: [
-    "🎆",
-    "🎇",
-    "✨",
-    "🎈",
-    "🎀",
-    "🎁",
-    "🎉",
-    "🎊",
-    "🎂",
-    "❤️",
-    "💗",
-    "💃",
-    "🕺",
-    "🎵",
-    "🍹",
-    "🥂",
-    "🍻"
-  ]
-
-};
-
-
-/* =========================================================
-   RANDOM NUMBER
-========================================================= */
-
-function random(min, max) {
-
-  return Math.random() * (max - min) + min;
-
-}
-
-
-/* =========================================================
-   CREATE RANDOM DECORATIONS
-========================================================= */
-
-function createDecorations() {
-
-  const container =
-    document.getElementById("decorations");
-
-  const card =
-    document.querySelector(".card");
-
-  container.innerHTML = "";
-
-
-  const cardRect =
-    card.getBoundingClientRect();
-
-
-  /*
-     The shorter the card,
-     the more decorations we create.
-  */
-
-  const cardRatio =
-    (cardRect.width * cardRect.height) /
-    (window.innerWidth * window.innerHeight);
-
-
-  let count;
-
-
-  if (cardRatio > 0.80) {
-
-    count = 28;
-
-  } else if (cardRatio > 0.70) {
-
-    count = 34;
-
-  } else if (cardRatio > 0.60) {
-
-    count = 40;
-
-  } else {
-
-    count = 46;
-
-  }
-
-
-  /*
-     Final page gets extra birthday decorations.
-  */
-
-  if (clueNumber === 10) {
-
-    count += 15;
-
-  }
-
-
-  const set =
-    decorationSets[clueNumber];
-
-
-  for (let i = 0; i < count; i++) {
-
-
-    const decoration =
-      document.createElement("span");
-
-
-    decoration.className =
-      "decoration";
-
-
-    decoration.textContent =
-      set[
-        Math.floor(
-          Math.random() * set.length
-        )
-      ];
-
-
-    let left;
-    let top;
+      8: {
+        theme: "theme8",
+        statement:
+          "Time to leave the bedroom behind... 🌳",
+        text:
+`Your next clue is waiting outside.
+
+Look somewhere that gives a little shade, 
+Where nature has its own little parade.`
+      },
+
+      9: {
+        theme: "theme9",
+        statement:
+          "The garden holds one last surprise! 🌳❤️",
+        text:
+`A birthday braai means fire and food,
+Good drinks, good laughs and a birthday mood. 🎂🔥
+
+So where will the flames be burning bright,
+And where will we celebrate your birthday tonight?`
+      },
+
+      10: {
+        theme: "theme10",
+        statement:
+          "YOU FOUND IT! 🎉❤️",
+        text:
+`I could have just handed you your birthday present, 
+but where's the fun in that? 😂
+
+This is a little something towards
+the tattoo you've been wanting. 🖤
+
+Happy Birthday! ❤️🎀
+Now go get yourself some ink!`
+      }
+
+    };
+
+
+    /* =========================================================
+       GET CLUE FROM URL
+       ========================================================= */
+
+    const params = new URLSearchParams(window.location.search);
+
+    let clueNumber = parseInt(params.get("clue"));
+
+    if (!clues[clueNumber]) {
+      clueNumber = 1;
+    }
+
+    const currentClue = clues[clueNumber];
+
+
+    /* =========================================================
+       LOAD PAGE
+       ========================================================= */
+
+    document.body.className = currentClue.theme;
+
+    document.getElementById("statement").innerHTML =
+      currentClue.statement;
+
+    document.getElementById("clueText").textContent =
+      currentClue.text;
+
+    const card = document.getElementById("clueCard");
+
+    if (clueNumber === 10) {
+      card.classList.add("final-card");
+    }
+
+
+    /* =========================================================
+       RANDOM BIRTHDAY DECORATIONS
+       ========================================================= */
+
+    const decorations = [
+
+      "🎈",
+      "🎉",
+      "✨",
+      "🎊",
+      "💖",
+      "⭐",
+      "🥳",
+      "🩷",
+      "🎂",
+      "🎁",
+
+      "🍹",
+      "🍸",
+      "🥂",
+      "🍾",
+
+      "💃",
+      "🕺",
+      "🎶",
+      "🎵",
+
+      "🪩",
+      "💐",
+      "🌸",
+      "🎀",
+      "🧁",
+      "🍰",
+
+      "✨",
+      "🎈",
+      "🎉",
+      "🥂",
+      "💃",
+      "🎶"
+    ];
 
 
     /*
-       Most decorations are placed
-       outside the card.
-
-       Some are allowed behind/around
-       the transparent card to create
-       the random look we liked.
+      Slightly different decoration mixes per page so the
+      background doesn't feel copied from one clue to another.
     */
 
-    const placeOutside =
-      Math.random() < 0.68;
+    const pageDecorationSets = {
+
+      1: [
+        "🎈","🎉","🌸","✨","🍓","🎂","🥂","🎀",
+        "🩷","🎊","💃","🎵","🧁","🍹","⭐","🎁",
+        "✨","🎈","🪩","💐"
+      ],
+
+      2: [
+        "🎈","🪩","✨","🥂","💜","🎉","💃","🎶",
+        "🎀","🌸","🍸","⭐","🎁","🎊","🕺","🩷",
+        "✨","🎂","🍾","🎈"
+      ],
+
+      3: [
+        "💧","🎈","✨","🍹","🩵","🎉","🥂","🎶",
+        "🪩","⭐","🎀","🕺","🎊","🎁","💃","🍸",
+        "✨","🎈","🧁","🎵"
+      ],
+
+      4: [
+        "🌸","🎈","🎀","✨","🩷","🎉","🥂","🎶",
+        "🎂","💃","🍹","🎊","⭐","🎁","🪩","🧁",
+        "✨","🎈","💐","🍾"
+      ],
+
+      5: [
+        "🎈","🔥","🎉","🥂","✨","🎶","🍹","💃",
+        "🎂","🎊","🕺","⭐","🎁","🍸","🪩","🎀",
+        "✨","🎈","🍾","🧁"
+      ],
+
+      6: [
+        "👗","🎀","✨","🎈","🌸","🥂","🎉","💃",
+        "🩷","🎶","🪩","🎂","🎊","🍹","⭐","🎁",
+        "✨","🎈","💐","🍸"
+      ],
+
+      7: [
+        "☁️","✨","🎈","🩵","🎀","🥂","🎉","🎶",
+        "🌙","⭐","💃","🪩","🧁","🎁","🍹","🎊",
+        "✨","🎈","🩷","🎵"
+      ],
+
+      8: [
+        "🌳","🌼","✨","🎈","🌿","🥂","🎉","💃",
+        "☀️","🎶","🌸","🎁","🍹","🎀","⭐","🎊",
+        "✨","🎈","🪩","🧁"
+      ],
+
+      9: [
+        "🔥","🎈","🍹","🎉","🥂","✨","🍾","🎶",
+        "💃","🕺","🎂","🎊","⭐","🎁","🪩","🍸",
+        "✨","🎈","🎀","🥳"
+      ],
+
+      10: [
+        "🎉","🎈","🥂","✨","💃","🕺","🪩","🍾",
+        "🎶","🎂","🎀","❤️","🩷","🎊","⭐","🍹",
+        "✨","🎈","💎","🥳"
+      ]
+
+    };
 
 
-    if (placeOutside) {
+    const positions = [
+      "d1","d2","d3","d4","d5",
+      "d6","d7","d8","d9","d10",
+      "d11","d12","d13","d14","d15",
+      "d16","d17","d18","d19","d20"
+    ];
 
 
-      let foundPosition = false;
+    function shuffle(array) {
 
+      const copied = [...array];
 
-      for (
-        let attempt = 0;
-        attempt < 25;
-        attempt++
-      ) {
+      for (let i = copied.length - 1; i > 0; i--) {
 
+        const j =
+          Math.floor(Math.random() * (i + 1));
 
-        left =
-          random(2, 96);
-
-        top =
-          random(2, 96);
-
-
-        const x =
-          (left / 100) *
-          window.innerWidth;
-
-
-        const y =
-          (top / 100) *
-          window.innerHeight;
-
-
-        const insideCard =
-
-          x >
-            cardRect.left - 35 &&
-
-          x <
-            cardRect.right + 35 &&
-
-          y >
-            cardRect.top - 35 &&
-
-          y <
-            cardRect.bottom + 35;
-
-
-        if (!insideCard) {
-
-          foundPosition = true;
-
-          break;
-
-        }
+        [copied[i], copied[j]] =
+          [copied[j], copied[i]];
 
       }
 
-
-      if (!foundPosition) {
-
-        left =
-          random(2, 96);
-
-        top =
-          random(2, 96);
-
-      }
-
-
-    } else {
-
-
-      left =
-        random(2, 96);
-
-      top =
-        random(2, 96);
-
+      return copied;
     }
 
 
-    const size =
-      random(17, 40);
+    function makeDecorations() {
 
+      const container =
+        document.getElementById("decorations");
 
-    decoration.style.left =
-      left + "%";
-
-
-    decoration.style.top =
-      top + "%";
-
-
-    decoration.style.fontSize =
-      size + "px";
-
-
-    decoration.style.setProperty(
-      "--opacity",
-      random(0.55, 0.95)
-    );
-
-
-    decoration.style.setProperty(
-      "--floatTime",
-      random(3, 7) + "s"
-    );
-
-
-    decoration.style.setProperty(
-      "--swayTime",
-      random(2.5, 5) + "s"
-    );
-
-
-    decoration.style.setProperty(
-      "--delay",
-      random(-5, 0) + "s"
-    );
-
-
-    decoration.style.setProperty(
-      "--rotation",
-      random(-25, 25) + "deg"
-    );
-
-
-    container.appendChild(
-      decoration
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   CREATE FIREWORK
-========================================================= */
-
-function createFirework(x, y) {
-
-
-  const container =
-    document.getElementById("fireworks");
-
-
-  const firework =
-    document.createElement("div");
-
-
-  firework.className =
-    "firework";
-
-
-  firework.style.left =
-    x + "%";
-
-
-  firework.style.top =
-    y + "%";
-
-
-  container.appendChild(
-    firework
-  );
-
-
-  /*
-     Large fireworks.
-  */
-
-  const sparkCount = 38;
-
-
-  for (
-    let i = 0;
-    i < sparkCount;
-    i++
-  ) {
-
-
-    const spark =
-      document.createElement("span");
-
-
-    spark.className =
-      "firework-spark";
-
-
-    const angle =
-      (360 / sparkCount) * i;
-
-
-    const distance =
-      random(70, 155);
-
-
-    spark.style.setProperty(
-      "--angle",
-      angle + "deg"
-    );
-
-
-    spark.style.setProperty(
-      "--distance",
-      distance + "px"
-    );
-
-
-    spark.style.animationDelay =
-      random(0, 0.12) + "s";
-
-
-    firework.appendChild(
-      spark
-    );
-
-  }
-
-
-  setTimeout(() => {
-
-    firework.remove();
-
-  }, 1900);
-
-}
-
-
-/* =========================================================
-   START FIREWORKS
-========================================================= */
-
-function startFireworks() {
-
-
-  if (clueNumber !== 10) {
-
-    return;
-
-  }
-
-
-  /*
-     Fireworks are kept around
-     the edges so they don't cover
-     the final message.
-  */
-
-  const positions = [
-
-    [12, 14],
-    [88, 14],
-
-    [7, 39],
-    [93, 39],
-
-    [12, 75],
-    [88, 75]
-
-  ];
-
-
-  positions.forEach(
-    (position, index) => {
-
-      setTimeout(() => {
-
-        createFirework(
-          position[0],
-          position[1]
+      const chosen =
+        shuffle(
+          pageDecorationSets[clueNumber] || decorations
         );
 
-      }, index * 300);
+      const shuffledPositions =
+        shuffle(positions);
+
+
+      shuffledPositions.forEach((positionClass, index) => {
+
+        const item =
+          document.createElement("span");
+
+        item.className =
+          `decor ${positionClass}`;
+
+        if (index % 6 === 0) {
+          item.classList.add("soft");
+        }
+
+        item.textContent =
+          chosen[index % chosen.length];
+
+        /*
+          Random variation without shrinking the clue text.
+        */
+
+        const randomScale =
+          0.86 + Math.random() * 0.46;
+
+        const floatSpeed =
+          4.1 + Math.random() * 3;
+
+        const delay =
+          -(Math.random() * 4);
+
+        const moveX =
+          Math.floor(Math.random() * 17) - 8;
+
+        const moveY =
+          -(8 + Math.floor(Math.random() * 13));
+
+        const startRotate =
+          Math.floor(Math.random() * 17) - 8;
+
+        const endRotate =
+          Math.floor(Math.random() * 19) - 9;
+
+
+        item.style.setProperty(
+          "--scale",
+          randomScale
+        );
+
+        item.style.setProperty(
+          "--float-speed",
+          `${floatSpeed}s`
+        );
+
+        item.style.setProperty(
+          "--delay",
+          `${delay}s`
+        );
+
+        item.style.setProperty(
+          "--move-x",
+          `${moveX}px`
+        );
+
+        item.style.setProperty(
+          "--move-y",
+          `${moveY}px`
+        );
+
+        item.style.setProperty(
+          "--start-rotate",
+          `${startRotate}deg`
+        );
+
+        item.style.setProperty(
+          "--end-rotate",
+          `${endRotate}deg`
+        );
+
+
+        container.appendChild(item);
+
+      });
+
+
+      /*
+        Add a few little coloured confetti dots.
+        They sit behind the card and help shorter clue pages
+        feel more filled without covering the text.
+      */
+
+      for (let i = 0; i < 12; i++) {
+
+        const dot =
+          document.createElement("span");
+
+        dot.className =
+          "decor confetti-dot";
+
+        dot.style.left =
+          `${3 + Math.random() * 94}%`;
+
+        dot.style.top =
+          `${3 + Math.random() * 92}%`;
+
+        dot.style.setProperty(
+          "--float-speed",
+          `${4 + Math.random() * 4}s`
+        );
+
+        dot.style.setProperty(
+          "--move-y",
+          `${-(8 + Math.random() * 14)}px`
+        );
+
+        dot.style.setProperty(
+          "--move-x",
+          `${-7 + Math.random() * 14}px`
+        );
+
+        container.appendChild(dot);
+
+      }
 
     }
-  );
 
 
-  setInterval(() => {
+    makeDecorations();
 
 
-    const position =
-      positions[
-        Math.floor(
-          Math.random() *
-          positions.length
-        )
+    /* =========================================================
+       FINAL PAGE FIREWORKS
+       ========================================================= */
+
+    function createFirework(x, y) {
+
+      const layer =
+        document.getElementById("fireworksLayer");
+
+      const firework =
+        document.createElement("div");
+
+      firework.className =
+        "firework";
+
+      firework.style.left =
+        `${x}%`;
+
+      firework.style.top =
+        `${y}%`;
+
+
+      const flash =
+        document.createElement("div");
+
+      flash.className =
+        "flash";
+
+      firework.appendChild(flash);
+
+
+      const sparkColours = [
+        "red",
+        "pink",
+        "silver",
+        "white"
       ];
 
 
-    createFirework(
-      position[0],
-      position[1]
-    );
+      const sparkCount = 24;
+
+      for (let i = 0; i < sparkCount; i++) {
+
+        const spark =
+          document.createElement("span");
+
+        const colour =
+          sparkColours[
+            Math.floor(
+              Math.random() *
+              sparkColours.length
+            )
+          ];
+
+        spark.className =
+          `spark ${colour}`;
+
+        spark.style.setProperty(
+          "--angle",
+          `${(360 / sparkCount) * i}deg`
+        );
+
+        spark.style.animationDelay =
+          `${Math.random() * 0.08}s`;
+
+        firework.appendChild(spark);
+
+      }
 
 
-  }, 1050);
-
-}
+      layer.appendChild(firework);
 
 
-/* =========================================================
-   GET CLUE NUMBER
-========================================================= */
+      setTimeout(() => {
+        firework.remove();
+      }, 1600);
 
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
+    }
 
 
-let clueNumber =
-  parseInt(
-    params.get("clue")
-  );
+    function launchFinalFireworks() {
+
+      /*
+        First dramatic burst immediately.
+      */
+
+      createFirework(22, 23);
+      createFirework(78, 27);
+      createFirework(50, 14);
 
 
-if (
-  isNaN(clueNumber) ||
-  clueNumber < 1 ||
-  clueNumber > 10
-) {
+      setTimeout(() => {
 
-  clueNumber = 1;
+        createFirework(18, 54);
+        createFirework(82, 55);
 
-}
+      }, 450);
 
 
-/* =========================================================
-   LOAD CLUE
-========================================================= */
+      setTimeout(() => {
 
-const container =
-  document.getElementById(
-    "clue-container"
-  );
+        createFirework(35, 38);
+        createFirework(67, 38);
+        createFirework(50, 72);
 
-
-container.innerHTML =
-  clues[clueNumber];
+      }, 850);
 
 
-/* =========================================================
-   APPLY ORIGINAL THEME
-========================================================= */
+      setTimeout(() => {
 
-document.body.classList.add(
-  "theme" + clueNumber
-);
+        createFirework(17, 77);
+        createFirework(83, 76);
 
-
-document.documentElement.style.setProperty(
-  "--accent",
-  themes[clueNumber]
-);
+      }, 1300);
 
 
-/* =========================================================
-   START
-========================================================= */
+      /*
+        Keep celebratory fireworks appearing afterwards.
+      */
 
-window.addEventListener(
-  "load",
-  () => {
+      setInterval(() => {
 
-    createDecorations();
+        const x =
+          12 + Math.random() * 76;
 
-    startFireworks();
+        const y =
+          10 + Math.random() * 68;
 
-  }
-);
+        createFirework(x, y);
 
+      }, 1500);
 
-window.addEventListener(
-  "resize",
-  () => {
-
-    createDecorations();
-
-  }
-);
+    }
 
 
-</script>
+    if (clueNumber === 10) {
+
+      setTimeout(
+        launchFinalFireworks,
+        300
+      );
+
+    }
+
+  </script>
 
 </body>
 </html>
