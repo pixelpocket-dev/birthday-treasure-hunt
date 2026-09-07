@@ -1,1044 +1,915 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <title>Birthday Treasure Hunt ❤️</title>
+<title>Birthday Treasure Hunt 🎉</title>
 
-  <style>
+<style>
     * {
-      box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --accent: #e63946;
     }
 
     html,
     body {
-      margin: 0;
-      min-height: 100%;
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
-      min-height: 100vh;
-
-      font-family: Georgia, "Times New Roman", serif;
-      color: #292525;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      padding: 30px 15px;
-
-      position: relative;
-      overflow-x: hidden;
-
-      transition: background 0.6s ease;
+        min-height: 100vh;
+        overflow-x: hidden;
+        transition: background 0.5s ease;
     }
 
-
-    /* =========================================
-       DIFFERENT BIRTHDAY COLOURS FOR EACH PAGE
-    ========================================= */
+    /* =========================
+       DIFFERENT BACKGROUNDS
+       ========================= */
 
     body.theme1 {
-      background: linear-gradient(135deg, #ffd6e0, #fff0e6);
+        background: linear-gradient(135deg, #ffd6d9, #fff1f2);
     }
 
     body.theme2 {
-      background: linear-gradient(135deg, #e3d5ff, #ffd8ef);
+        background: linear-gradient(135deg, #eadcff, #f8f1ff);
     }
 
     body.theme3 {
-      background: linear-gradient(135deg, #bdefff, #d9fff0);
+        background: linear-gradient(135deg, #c9f4fa, #effcff);
     }
 
     body.theme4 {
-      background: linear-gradient(135deg, #ffd5bd, #ffd9ea);
+        background: linear-gradient(135deg, #ffe0d4, #fff5f0);
     }
 
     body.theme5 {
-      background: linear-gradient(135deg, #ffc8b5, #ffe5ad);
+        background: linear-gradient(135deg, #ffe0bd, #fff5e8);
     }
 
     body.theme6 {
-      background: linear-gradient(135deg, #dfd0ff, #ffcfe8);
+        background: linear-gradient(135deg, #eadcff, #faf5ff);
     }
 
     body.theme7 {
-      background: linear-gradient(135deg, #d0edff, #e4d9ff);
+        background: linear-gradient(135deg, #ddd9ff, #f7f6ff);
     }
 
     body.theme8 {
-      background: linear-gradient(135deg, #d2f5c4, #fff0aa);
+        background: linear-gradient(135deg, #d9f4c8, #f5fff0);
     }
 
     body.theme9 {
-      background: linear-gradient(135deg, #ffc99e, #ffb9aa);
+        background: linear-gradient(135deg, #ffe0bd, #fff7ed);
     }
 
     body.theme10 {
-      background: linear-gradient(135deg, #ffbfd1, #ffd4e5, #ffe9ad);
+        background: linear-gradient(135deg, #ffd1d6, #fff0f2);
     }
 
-
-    /* =========================================
-       DECORATIONS
-    ========================================= */
+    /* =========================
+       DECORATION AREA
+       ========================= */
 
     .decorations {
-      position: fixed;
-      inset: 0;
-
-      pointer-events: none;
-
-      overflow: hidden;
-
-      z-index: 0;
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
     }
 
     .decoration {
-      position: absolute;
-
-      user-select: none;
-
-      animation:
-        floatDecoration var(--float-time) ease-in-out infinite;
-
-      animation-delay: var(--delay);
-
-      transform: rotate(var(--rotation));
-
-      opacity: var(--opacity);
-
-      font-size: var(--size);
+        position: absolute;
+        display: block;
+        font-size: var(--size);
+        opacity: var(--opacity);
+        animation: float var(--float-time) ease-in-out infinite;
+        animation-delay: var(--delay);
+        transform: rotate(var(--rotation));
+        user-select: none;
     }
-
-
-    @keyframes floatDecoration {
-
-      0% {
-        transform:
-          translateY(0)
-          rotate(var(--rotation));
-      }
-
-      50% {
-        transform:
-          translateY(-12px)
-          rotate(calc(var(--rotation) + 7deg));
-      }
-
-      100% {
-        transform:
-          translateY(0)
-          rotate(var(--rotation));
-      }
-    }
-
-
-    /* =========================================
-       DIFFERENT DECORATION SIZES
-    ========================================= */
 
     .tiny {
-      --size: 13px;
-      --opacity: 0.65;
+        --size: 14px;
+        --opacity: 0.65;
     }
 
     .small {
-      --size: 20px;
-      --opacity: 0.75;
+        --size: 20px;
+        --opacity: 0.75;
     }
 
     .medium {
-      --size: 30px;
-      --opacity: 0.9;
+        --size: 28px;
+        --opacity: 0.8;
     }
 
     .large {
-      --size: 43px;
-      --opacity: 0.95;
+        --size: 40px;
+        --opacity: 0.85;
     }
 
     .huge {
-      --size: 62px;
-      --opacity: 0.9;
+        --size: 55px;
+        --opacity: 0.9;
     }
-
-
-    /* =========================================
-       DIFFERENT POSITIONS
-    ========================================= */
-
-    .pos1 {
-      top: 5%;
-      left: 5%;
-      --rotation: -18deg;
-    }
-
-    .pos2 {
-      top: 9%;
-      right: 8%;
-      --rotation: 14deg;
-    }
-
-    .pos3 {
-      top: 23%;
-      left: 3%;
-      --rotation: 8deg;
-    }
-
-    .pos4 {
-      top: 29%;
-      right: 4%;
-      --rotation: -14deg;
-    }
-
-    .pos5 {
-      top: 47%;
-      left: 7%;
-      --rotation: 18deg;
-    }
-
-    .pos6 {
-      top: 53%;
-      right: 6%;
-      --rotation: -9deg;
-    }
-
-    .pos7 {
-      bottom: 25%;
-      left: 4%;
-      --rotation: -12deg;
-    }
-
-    .pos8 {
-      bottom: 19%;
-      right: 8%;
-      --rotation: 16deg;
-    }
-
-    .pos9 {
-      bottom: 7%;
-      left: 17%;
-      --rotation: -20deg;
-    }
-
-    .pos10 {
-      bottom: 8%;
-      right: 20%;
-      --rotation: 12deg;
-    }
-
-    .pos11 {
-      top: 16%;
-      left: 20%;
-      --rotation: 25deg;
-    }
-
-    .pos12 {
-      top: 68%;
-      right: 19%;
-      --rotation: -25deg;
-    }
-
-    .pos13 {
-      bottom: 31%;
-      left: 20%;
-      --rotation: 8deg;
-    }
-
-    .pos14 {
-      top: 38%;
-      right: 18%;
-      --rotation: -18deg;
-    }
-
-
-    /* =========================================
-       ANIMATION SPEEDS
-    ========================================= */
 
     .slow {
-      --float-time: 6s;
-      --delay: 0s;
+        --float-time: 5s;
+        --delay: 0s;
     }
 
     .normal {
-      --float-time: 4.5s;
-      --delay: 1s;
+        --float-time: 4s;
+        --delay: 0.5s;
     }
 
     .fast {
-      --float-time: 3.5s;
-      --delay: 1.8s;
+        --float-time: 3.5s;
+        --delay: 1s;
     }
 
+    @keyframes float {
+        0%, 100% {
+            margin-top: 0;
+            transform: translateY(0) rotate(var(--rotation));
+        }
 
-    /* =========================================
+        50% {
+            margin-top: -9px;
+            transform: translateY(-4px) rotate(calc(var(--rotation) + 5deg));
+        }
+    }
+
+    /* =========================
+       PHONE-SAFE DECORATIONS
+       These positions are outside
+       the white card on an S22.
+       ========================= */
+
+    .d1 {
+        top: 7px;
+        left: 8px;
+    }
+
+    .d2 {
+        top: 9px;
+        right: 8px;
+    }
+
+    .d3 {
+        top: 48px;
+        left: 5px;
+    }
+
+    .d4 {
+        top: 52px;
+        right: 5px;
+    }
+
+    .d5 {
+        bottom: 8px;
+        left: 8px;
+    }
+
+    .d6 {
+        bottom: 10px;
+        right: 8px;
+    }
+
+    .d7 {
+        bottom: 48px;
+        left: 5px;
+    }
+
+    .d8 {
+        bottom: 52px;
+        right: 5px;
+    }
+
+    /* =========================
        MAIN CARD
-    ========================================= */
+       ========================= */
 
     .page {
-      width: 100%;
-      max-width: 620px;
+        position: relative;
+        z-index: 5;
 
-      position: relative;
+        width: 100%;
+        min-height: 100vh;
 
-      z-index: 5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 72px 14px;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.97);
+        position: relative;
+        width: 100%;
+        max-width: 620px;
 
-      border-radius: 28px;
+        background: rgba(255, 255, 255, 0.97);
 
-      padding: 45px 30px 48px;
+        border-radius: 28px;
 
-      text-align: center;
+        padding: 30px 24px 32px;
 
-      position: relative;
+        box-shadow:
+            0 12px 35px rgba(0, 0, 0, 0.12);
 
-      overflow: hidden;
+        text-align: center;
 
-      border: 3px solid rgba(255, 255, 255, 0.9);
-
-      box-shadow:
-        0 18px 55px rgba(60, 30, 50, 0.18),
-        0 3px 12px rgba(60, 30, 50, 0.08);
+        overflow: hidden;
     }
 
-
-    /* Soft decorative corners */
-
     .card::before {
-      content: "✦";
+        content: "✦";
+        position: absolute;
+        top: -15px;
+        left: -8px;
 
-      position: absolute;
-
-      top: -27px;
-      left: -7px;
-
-      font-size: 110px;
-
-      color: var(--accent);
-
-      opacity: 0.10;
-
-      transform: rotate(-20deg);
+        font-size: 75px;
+        color: var(--accent);
+        opacity: 0.08;
     }
 
     .card::after {
-      content: "✦";
+        content: "✦";
+        position: absolute;
+        bottom: -25px;
+        right: -5px;
 
-      position: absolute;
-
-      bottom: -30px;
-      right: -8px;
-
-      font-size: 120px;
-
-      color: var(--accent);
-
-      opacity: 0.10;
-
-      transform: rotate(20deg);
+        font-size: 90px;
+        color: var(--accent);
+        opacity: 0.08;
     }
-
-
-    /* =========================================
-       TOP DECORATION
-    ========================================= */
 
     .top-decoration {
-      color: var(--accent);
+        position: relative;
+        z-index: 2;
 
-      font-size: 20px;
+        color: var(--accent);
+        font-size: 20px;
 
-      letter-spacing: 7px;
+        margin-bottom: 18px;
 
-      margin-bottom: 25px;
-
-      position: relative;
-
-      z-index: 10;
+        letter-spacing: 5px;
     }
-
-
-    /* =========================================
-       RED/COLOURFUL STATEMENT
-    ========================================= */
-
-    .statement {
-      color: var(--accent);
-
-      font-size: 22px;
-
-      font-weight: bold;
-
-      line-height: 1.5;
-
-      margin: 0 auto 30px;
-
-      position: relative;
-
-      z-index: 10;
-    }
-
-
-    /* =========================================
-       CLUE TEXT
-    ========================================= */
 
     .clue {
-      position: relative;
-
-      z-index: 10;
+        position: relative;
+        z-index: 2;
     }
 
-    .clue p {
-      font-size: 18px;
+    .statement {
+        color: var(--accent);
 
-      line-height: 1.9;
+        font-size: 22px;
+        font-weight: 800;
 
-      margin: 0 0 22px;
+        line-height: 1.35;
+
+        margin-bottom: 20px;
     }
 
-    .clue p:last-child {
-      margin-bottom: 0;
+    .clue-text {
+        font-size: 17px;
+        line-height: 1.65;
+
+        color: #333;
+
+        white-space: pre-line;
     }
-
-
-    /* =========================================
-       DIVIDERS
-    ========================================= */
 
     .divider {
-      width: 58px;
+        width: 65px;
+        height: 4px;
 
-      height: 2px;
+        background: var(--accent);
 
-      background: var(--accent);
+        border-radius: 20px;
 
-      opacity: 0.4;
+        margin: 22px auto 0;
 
-      margin: 27px auto;
+        opacity: 0.7;
     }
 
-
-    /* =========================================
-       FINAL MESSAGE
-    ========================================= */
+    /* =========================
+       FINAL PAGE
+       ========================= */
 
     .final-message {
-      font-size: 19px;
+        font-size: 27px;
+        font-weight: 900;
 
-      line-height: 1.9;
+        color: var(--accent);
+
+        line-height: 1.35;
+
+        margin-bottom: 22px;
     }
 
-    .final-message strong {
-      color: var(--accent);
+    .tattoo {
+        font-size: 19px;
+        font-weight: 700;
+
+        color: #222;
+
+        line-height: 1.55;
+
+        white-space: pre-line;
     }
 
+    .heart {
+        font-size: 30px;
+        margin-top: 18px;
+    }
 
-    /* =========================================
-       FIREWORKS — FINAL PAGE ONLY
-    ========================================= */
+    /* =========================
+       FIREWORKS
+       ========================= */
 
     .fireworks {
-      position: fixed;
+        position: fixed;
+        inset: 0;
 
-      inset: 0;
+        pointer-events: none;
 
-      pointer-events: none;
+        z-index: 2;
 
-      overflow: hidden;
-
-      z-index: 1;
+        overflow: hidden;
     }
 
     .firework {
-      position: absolute;
+        position: absolute;
 
-      width: 6px;
-      height: 6px;
+        width: 8px;
+        height: 8px;
 
-      border-radius: 50%;
+        border-radius: 50%;
 
-      opacity: 0;
-
-      animation: explode 3.8s infinite;
+        animation: explode 2.2s infinite;
     }
 
-
-    .firework::before,
-    .firework::after {
-      content: "";
-
-      position: absolute;
-
-      width: 5px;
-      height: 5px;
-
-      border-radius: 50%;
-
-      box-shadow:
-        0 -55px 0 1px #e63946,
-        39px -39px 0 1px #ff7b00,
-        55px 0 0 1px #9b5de5,
-        39px 39px 0 1px #00a6c7,
-        0 55px 0 1px #55a630,
-        -39px 39px 0 1px #f72585,
-        -55px 0 0 1px #e63946,
-        -39px -39px 0 1px #ffb703;
+    .fw1 {
+        top: 45px;
+        left: 18px;
     }
 
+    .fw2 {
+        top: 45px;
+        right: 18px;
 
-    .firework::before {
-      transform: rotate(22deg);
+        animation-delay: 0.7s;
     }
 
-    .firework::after {
-      transform: rotate(67deg);
+    .fw3 {
+        bottom: 45px;
+        left: 20px;
+
+        animation-delay: 1.2s;
     }
 
+    .fw4 {
+        bottom: 45px;
+        right: 20px;
 
-    .firework.fw1 {
-      top: 13%;
-      left: 17%;
-
-      animation-delay: 0s;
+        animation-delay: 1.7s;
     }
-
-    .firework.fw2 {
-      top: 20%;
-      right: 17%;
-
-      animation-delay: 1.2s;
-    }
-
-    .firework.fw3 {
-      top: 68%;
-      left: 12%;
-
-      animation-delay: 2.1s;
-    }
-
-    .firework.fw4 {
-      top: 63%;
-      right: 13%;
-
-      animation-delay: 0.7s;
-    }
-
 
     @keyframes explode {
+        0% {
+            box-shadow:
+                0 0 0 0 var(--accent),
+                0 0 0 0 var(--accent),
+                0 0 0 0 var(--accent),
+                0 0 0 0 var(--accent),
+                0 0 0 0 var(--accent),
+                0 0 0 0 var(--accent),
+                0 0 0 0 var(--accent),
+                0 0 0 0 var(--accent);
+            opacity: 1;
+        }
 
-      0% {
-        transform: scale(0.1);
-        opacity: 0;
-      }
+        45% {
+            box-shadow:
+                0 -35px 0 -2px var(--accent),
+                25px -25px 0 -2px var(--accent),
+                35px 0 0 -2px var(--accent),
+                25px 25px 0 -2px var(--accent),
+                0 35px 0 -2px var(--accent),
+                -25px 25px 0 -2px var(--accent),
+                -35px 0 0 -2px var(--accent),
+                -25px -25px 0 -2px var(--accent);
+            opacity: 1;
+        }
 
-      10% {
-        transform: scale(0.5);
-        opacity: 1;
-      }
-
-      35% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      60% {
-        transform: scale(1.25);
-        opacity: 0.8;
-      }
-
-      100% {
-        transform: scale(1.5);
-        opacity: 0;
-      }
+        100% {
+            box-shadow:
+                0 -52px 0 -4px transparent,
+                37px -37px 0 -4px transparent,
+                52px 0 0 -4px transparent,
+                37px 37px 0 -4px transparent,
+                0 52px 0 -4px transparent,
+                -37px 37px 0 -4px transparent,
+                -52px 0 0 -4px transparent,
+                -37px -37px 0 -4px transparent;
+            opacity: 0;
+        }
     }
 
+    /* =========================
+       SMALL PHONE SCREENS
+       ========================= */
 
-    /* =========================================
-       MOBILE
-    ========================================= */
+    @media (max-width: 430px) {
 
-    @media (max-width: 600px) {
+        .page {
+            padding: 68px 12px;
+        }
 
-      body {
-        padding: 25px 12px;
-      }
+        .card {
+            padding: 27px 20px 29px;
+            border-radius: 25px;
+        }
 
-      .card {
-        padding: 38px 21px 42px;
+        .top-decoration {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
 
-        border-radius: 23px;
-      }
+        .statement {
+            font-size: 20px;
+        }
 
-      .statement {
-        font-size: 20px;
-      }
+        .clue-text {
+            font-size: 16px;
+            line-height: 1.6;
+        }
 
-      .clue p {
-        font-size: 17px;
+        .final-message {
+            font-size: 25px;
+        }
 
-        line-height: 1.85;
-      }
+        .tattoo {
+            font-size: 18px;
+        }
 
-      .top-decoration {
-        font-size: 18px;
+        /* Keep side decorations small enough
+           that they never intrude into card */
 
-        letter-spacing: 5px;
-      }
+        .huge {
+            --size: 38px;
+        }
 
-      .huge {
-        --size: 48px;
-      }
+        .large {
+            --size: 30px;
+        }
 
-      .large {
-        --size: 36px;
-      }
+        .medium {
+            --size: 23px;
+        }
 
-      .medium {
-        --size: 26px;
-      }
+        .small {
+            --size: 17px;
+        }
 
-      .firework::before,
-      .firework::after {
-        box-shadow:
-          0 -42px 0 1px #e63946,
-          30px -30px 0 1px #ff7b00,
-          42px 0 0 1px #9b5de5,
-          30px 30px 0 1px #00a6c7,
-          0 42px 0 1px #55a630,
-          -30px 30px 0 1px #f72585,
-          -42px 0 0 1px #e63946,
-          -30px -30px 0 1px #ffb703;
-      }
+        .tiny {
+            --size: 12px;
+        }
     }
 
-  </style>
+    /* =========================
+       VERY SMALL PHONES
+       ========================= */
+
+    @media (max-width: 360px) {
+
+        .page {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .card {
+            padding-left: 17px;
+            padding-right: 17px;
+        }
+
+        .statement {
+            font-size: 19px;
+        }
+
+        .clue-text {
+            font-size: 15px;
+        }
+
+        .d3,
+        .d4,
+        .d7,
+        .d8 {
+            display: none;
+        }
+    }
+</style>
 </head>
 
+<body class="theme1">
 
-<body>
+<!-- =========================
+     BIRTHDAY DECORATIONS
+     ========================= -->
 
-  <!-- =========================================
-       BIRTHDAY DECORATIONS
-  ========================================== -->
+<div class="decorations" id="decorations">
 
-  <div class="decorations" id="decorations">
+    <span class="decoration huge d1 slow">🎈</span>
+    <span class="decoration small d2 normal">✦</span>
 
-    <span class="decoration huge pos1 slow">🎈</span>
+    <span class="decoration medium d3 fast">🎀</span>
+    <span class="decoration small d4 slow">★</span>
 
-    <span class="decoration small pos2 normal">✦</span>
+    <span class="decoration large d5 normal">🎁</span>
+    <span class="decoration medium d6 fast">🎉</span>
 
-    <span class="decoration large pos3 fast">🎀</span>
+    <span class="decoration small d7 slow">♥</span>
+    <span class="decoration medium d8 normal">✧</span>
 
-    <span class="decoration tiny pos4 slow">✦</span>
-
-    <span class="decoration medium pos5 normal">🎁</span>
-
-    <span class="decoration large pos6 fast">🎉</span>
-
-    <span class="decoration small pos7 slow">★</span>
-
-    <span class="decoration huge pos8 normal">🎈</span>
-
-    <span class="decoration tiny pos9 fast">✧</span>
-
-    <span class="decoration medium pos10 slow">🎊</span>
-
-    <span class="decoration small pos11 normal">★</span>
-
-    <span class="decoration large pos12 fast">🎀</span>
-
-    <span class="decoration tiny pos13 slow">✦</span>
-
-    <span class="decoration medium pos14 normal">♥</span>
-
-  </div>
+</div>
 
 
-  <!-- =========================================
-       FIREWORKS
-       Hidden unless clue 10 is active
-  ========================================== -->
+<!-- =========================
+     FINAL PAGE FIREWORKS
+     ========================= -->
 
-  <div class="fireworks" id="fireworks" style="display:none;">
+<div class="fireworks" id="fireworks" style="display:none;">
 
     <div class="firework fw1"></div>
     <div class="firework fw2"></div>
     <div class="firework fw3"></div>
     <div class="firework fw4"></div>
 
-  </div>
+</div>
 
 
-  <!-- =========================================
-       MAIN CARD
-  ========================================== -->
+<!-- =========================
+     MAIN CARD
+     ========================= -->
 
-  <main class="page">
+<main class="page">
 
     <div class="card">
 
-      <div class="top-decoration">
-        ✦ 🎉 ✦
-      </div>
+        <div class="top-decoration">
+            ✦ 🎉 ✦
+        </div>
 
-      <div id="clue-container"></div>
+        <div id="clue-container"></div>
 
     </div>
 
-  </main>
+</main>
 
 
-  <script>
+<script>
 
-    /* =========================================
-       ALL CLUES
-    ========================================== */
+const clues = {
 
-    const clues = {
-
-      1: `
-        <p class="statement">
-          Ready or not...<br>
-          your birthday adventure starts now! 🎉
-        </p>
-
+    1: `
         <div class="clue">
 
-          <p>
-            Your clue is green and creamy too,<br>
-            And there's a little surprise waiting for you.
-          </p>
+            <div class="statement">
+                Ready or not...<br>
+                your birthday adventure starts now! 🎉
+            </div>
 
-          <div class="divider"></div>
+            <div class="clue-text">
+Your clue is green and creamy too,
+And there's a little surprise waiting for you.
 
-          <p>
-            It's made with love, especially for you,<br>
-            A little something tasty, a little something new.
-          </p>
+It's made with love, especially for you,
+A little something tasty, a little something new.
 
-          <div class="divider"></div>
+Think of something delicious, made with care,
+Your first little treasure is waiting somewhere.
+            </div>
 
-          <p>
-            Think of something delicious, made with care,<br>
-            Your first little treasure is waiting somewhere.
-          </p>
+            <div class="divider"></div>
 
         </div>
-      `,
+    `,
 
 
-      2: `
-        <p class="statement">
-          Look at you, making money! 😂
-        </p>
-
+    2: `
         <div class="clue">
 
-          <p>
-            Well done! You found your next surprise,<br>
-            But don't get too comfortable with the prize.
-          </p>
+            <div class="statement">
+                Look at you, making money! 😂
+            </div>
 
-          <div class="divider"></div>
+            <div class="clue-text">
+Well done! You found your next surprise,
+But don't get too comfortable with the prize.
 
-          <p>
-            Now go somewhere that has a view of you.
-          </p>
+Now go somewhere that has a view of you.
 
-          <p>
-            Your next little treasure is waiting there too. 👀
-          </p>
+Your next little treasure is waiting there too. 👀
+            </div>
+
+            <div class="divider"></div>
 
         </div>
-      `,
+    `,
 
 
-      3: `
-        <p class="statement">
-          Feeling thirsty yet? 😂💧
-        </p>
-
+    3: `
         <div class="clue">
 
-          <p>
-            Your next clue is waiting where water flows,<br>
-            but where it goes, nobody knows. 💧
-          </p>
+            <div class="statement">
+                Feeling thirsty yet? 😂💧
+            </div>
 
-          <div class="divider"></div>
+            <div class="clue-text">
+Your next clue is waiting where water flows,
+but where it goes, nobody knows. 💧
 
-          <p>
-            Follow the sound and take a look,<br>
-            your next surprise is hiding in this nook. 👀
-          </p>
+Follow the sound and take a look,
+your next surprise is hiding in this nook. 👀
+            </div>
+
+            <div class="divider"></div>
 
         </div>
-      `,
+    `,
 
 
-      4: `
-        <p class="statement">
-          You're on a roll, so don't delay!
-        </p>
-
+    4: `
         <div class="clue">
 
-          <p>
-            Your next clue is hiding where I used to stay. ❤️
-          </p>
+            <div class="statement">
+                You're on a roll, so don't delay!
+            </div>
 
-          <div class="divider"></div>
+            <div class="clue-text">
+Your next clue is hiding where I used to stay. ❤️
 
-          <p>
-            A room that holds a little history,<br>
-            and maybe a memory or two of me. 😂
-          </p>
+A room that holds a little history,
+and maybe a memory or two of me. 😂
 
-          <div class="divider"></div>
+Go find the room that was once mine...
+            </div>
 
-          <p>
-            Go find the room that was once mine...
-          </p>
+            <div class="divider"></div>
 
         </div>
-      `,
+    `,
 
 
-      5: `
-        <p class="statement">
-          Well done! You found your way.
-        </p>
-
+    5: `
         <div class="clue">
 
-          <p>
-            Now go find the place where your bum likes to stay,<br>
-            when you're ready to relax at the end of the day. 😂
-          </p>
+            <div class="statement">
+                Well done! You found your way.
+            </div>
 
-          <div class="divider"></div>
+            <div class="clue-text">
+Now go find the place where your bum likes to stay,
+when you're ready to relax at the end of the day. 😂
 
-          <p>
-            Where you sit back, get comfy and stay,<br>
-            especially when you've had a long day.
-          </p>
+Where you sit back, get comfy and stay,
+especially when you've had a long day.
+            </div>
+
+            <div class="divider"></div>
 
         </div>
-      `,
+    `,
 
 
-      6: `
-        <p class="statement">
-          You're getting closer, don't you know?
-        </p>
-
+    6: `
         <div class="clue">
 
-          <p>
-            Now to somewhere your clothes like to go. 👗
-          </p>
+            <div class="statement">
+                You're getting closer, don't you know?
+            </div>
 
-          <div class="divider"></div>
+            <div class="clue-text">
+Now to somewhere your clothes like to go. 👗
 
-          <p>
-            Dresses and shirts all hiding away,<br>
-            waiting for you to choose them one day. 😂
-          </p>
+Dresses and shirts all hiding away,
+waiting for you to choose them one day. 😂
 
-          <div class="divider"></div>
+Go have a look where your clothes stay...
+            </div>
 
-          <p>
-            Go have a look where your clothes stay...
-          </p>
+            <div class="divider"></div>
 
         </div>
-      `,
+    `,
 
 
-      7: `
-        <p class="statement">
-          Getting tired yet? 😂❤️
-        </p>
-
+    7: `
         <div class="clue">
 
-          <p>
-            You're getting closer, don't stop the chase,<br>
-            Your next clue is hiding in a very familiar place.
-          </p>
+            <div class="statement">
+                Getting tired yet? 😂❤️
+            </div>
 
-          <div class="divider"></div>
+            <div class="clue-text">
+You're getting closer, don't stop the chase,
+Your next clue is hiding in a very familiar place.
 
-          <p>
-            It's somewhere soft where you rest your face,<br>
-            And hopefully dream of winning this race.
-          </p>
+It's somewhere soft where you rest your face,
+And hopefully dream of winning this race.
+            </div>
+
+            <div class="divider"></div>
 
         </div>
-      `,
+    `,
 
 
-      8: `
-        <p class="statement">
-          Time to leave the bedroom behind... 🌳
-        </p>
-
+    8: `
         <div class="clue">
 
-          <p>
-            Your next clue is waiting outside.
-          </p>
+            <div class="statement">
+                Time to leave the bedroom behind... 🌳
+            </div>
 
-          <div class="divider"></div>
+            <div class="clue-text">
+Your next clue is waiting outside.
 
-          <p>
-            Look somewhere that gives a little shade,<br>
-            Where nature has its own little parade.
-          </p>
+Look somewhere that gives a little shade,
+Where nature has its own little parade.
+            </div>
+
+            <div class="divider"></div>
 
         </div>
-      `,
+    `,
 
 
-      9: `
-        <p class="statement">
-          The garden holds one last surprise! 🌳❤️
-        </p>
-
+    9: `
         <div class="clue">
 
-          <p>
-            A birthday braai means fire and food,<br>
-            Good drinks, good laughs and a birthday mood. 🎂🔥
-          </p>
+            <div class="statement">
+                The garden holds one last surprise! 🌳❤️
+            </div>
 
-          <div class="divider"></div>
+            <div class="clue-text">
+A birthday braai means fire and food,
+Good drinks, good laughs and a birthday mood. 🎂🔥
 
-          <p>
-            So where will the flames be burning bright,<br>
-            And where will we celebrate your birthday tonight?
-          </p>
+So where will the flames be burning bright,
+And where will we celebrate your birthday tonight?
+            </div>
 
-        </div>
-      `,
-
-
-      10: `
-        <p class="statement">
-          YOU FOUND IT! 🎉❤️
-        </p>
-
-        <div class="clue final-message">
-
-          <p>
-            I could have just handed you your birthday present,<br>
-            but where's the fun in that? 😂
-          </p>
-
-          <div class="divider"></div>
-
-          <p>
-            This is a little something towards<br>
-            the tattoo you've been wanting. 🖤
-          </p>
-
-          <div class="divider"></div>
-
-          <p>
-            <strong>Happy Birthday! ❤️🎀</strong>
-          </p>
-
-          <p>
-            Now go get yourself some ink!
-          </p>
+            <div class="divider"></div>
 
         </div>
-      `
-
-    };
+    `,
 
 
-    /* =========================================
-       COLOUR FOR EACH PAGE
-    ========================================== */
+    10: `
+        <div class="clue">
 
-    const themes = {
+            <div class="final-message">
+                YOU FOUND IT! 🎉❤️
+            </div>
 
-      1: "#e63946",
-      2: "#9b5de5",
-      3: "#00a6c7",
-      4: "#e76f51",
-      5: "#e85d04",
-      6: "#9b5de5",
-      7: "#6c63c7",
-      8: "#55a630",
-      9: "#e85d04",
-      10: "#d62839"
+            <div class="tattoo">
+I could have just handed you your birthday present,
+but where's the fun in that? 😂
 
-    };
+This is a little something towards
+the tattoo you've been wanting. 🖤
 
+<b>Happy Birthday! ❤️🎀</b>
 
-    /* =========================================
-       GET THE CLUE NUMBER
-    ========================================== */
+Now go get yourself some ink!
+            </div>
 
-    const params =
-      new URLSearchParams(window.location.search);
+            <div class="heart">
+                🖤 🎀 🖤
+            </div>
 
-    const requestedClue =
-      parseInt(params.get("clue"));
+        </div>
+    `
 
-    const activeNumber =
-      clues[requestedClue]
-        ? requestedClue
-        : 1;
+};
 
 
-    /* =========================================
-       SHOW THE CORRECT CLUE
-    ========================================== */
+/* =========================
+   PAGE THEMES
+   ========================= */
 
-    const container =
-      document.getElementById("clue-container");
+const themes = {
 
-    container.innerHTML =
-      clues[activeNumber];
+    1: "#e63946",
+    2: "#9b5de5",
+    3: "#00a6c7",
+    4: "#e76f51",
+    5: "#e85d04",
+    6: "#9b5de5",
+    7: "#6c63c7",
+    8: "#55a630",
+    9: "#e85d04",
+    10: "#d62839"
 
-
-    /* =========================================
-       APPLY THE PAGE THEME
-    ========================================== */
-
-    document.body.classList.add(
-      "theme" + activeNumber
-    );
-
-    document.documentElement.style.setProperty(
-      "--accent",
-      themes[activeNumber]
-    );
+};
 
 
-    /* =========================================
-       FIREWORKS ONLY ON FINAL PAGE
-    ========================================== */
+/* =========================
+   DIFFERENT DECORATIONS
+   FOR EACH CLUE
+   ========================= */
 
-    if (activeNumber === 10) {
+const decorationSets = {
 
-      document.getElementById("fireworks").style.display =
+    1: ["🎈", "🎀", "🎁", "★", "✦", "♥", "🎉", "✧"],
+    2: ["🎉", "💜", "✦", "🎀", "★", "🎈", "✨", "♥"],
+    3: ["💧", "✨", "🎈", "★", "✦", "🎉", "💙", "🎀"],
+    4: ["❤️", "🎁", "✦", "🎈", "★", "🎀", "✨", "♥"],
+    5: ["🎉", "🎁", "★", "🧡", "✦", "🎈", "🎀", "✨"],
+    6: ["🎀", "💜", "👗", "✦", "🎈", "★", "✨", "🎉"],
+    7: ["❤️", "🎈", "✨", "★", "🎀", "✦", "🎁", "♥"],
+    8: ["🌿", "🌳", "💚", "✦", "🎈", "✨", "★", "🎀"],
+    9: ["🎉", "🔥", "🎂", "🎈", "✨", "★", "🎀", "❤️"],
+    10: ["🎉", "🎊", "🎈", "🎆", "✨", "🎀", "❤️", "🖤"]
+
+};
+
+
+/* =========================
+   GET CLUE NUMBER
+   ========================= */
+
+const params = new URLSearchParams(window.location.search);
+
+let activeNumber = parseInt(params.get("clue")) || 1;
+
+if (activeNumber < 1 || activeNumber > 10) {
+    activeNumber = 1;
+}
+
+
+/* =========================
+   SET PAGE
+   ========================= */
+
+document.body.classList.add("theme" + activeNumber);
+
+document.documentElement.style.setProperty(
+    "--accent",
+    themes[activeNumber]
+);
+
+
+/* =========================
+   SHOW CLUE
+   ========================= */
+
+document.getElementById("clue-container").innerHTML =
+    clues[activeNumber];
+
+
+/* =========================
+   CHANGE DECORATIONS
+   ========================= */
+
+const decorationElements =
+    document.querySelectorAll(".decoration");
+
+const currentSet =
+    decorationSets[activeNumber];
+
+decorationElements.forEach((element, index) => {
+
+    element.textContent =
+        currentSet[index];
+
+});
+
+
+/* =========================
+   FINAL FIREWORKS
+   ========================= */
+
+if (activeNumber === 10) {
+
+    document.getElementById("fireworks").style.display =
         "block";
 
-    }
+}
 
-  </script>
+</script>
 
 </body>
 </html>
