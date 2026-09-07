@@ -11,9 +11,15 @@
       box-sizing: border-box;
     }
 
+    html,
     body {
       margin: 0;
+      min-height: 100%;
+    }
+
+    body {
       min-height: 100vh;
+
       font-family: Georgia, "Times New Roman", serif;
       color: #292525;
 
@@ -26,263 +32,342 @@
       position: relative;
       overflow-x: hidden;
 
-      transition:
-        background 0.5s ease,
-        color 0.5s ease;
+      transition: background 0.6s ease;
     }
 
-    /* ---------------------------------
-       PAGE THEMES
-    --------------------------------- */
+
+    /* =========================================
+       DIFFERENT BIRTHDAY COLOURS FOR EACH PAGE
+    ========================================= */
 
     body.theme1 {
-      background: linear-gradient(135deg, #ffdce5, #fff3e8);
+      background: linear-gradient(135deg, #ffd6e0, #fff0e6);
     }
 
     body.theme2 {
-      background: linear-gradient(135deg, #e8dcff, #ffdff0);
+      background: linear-gradient(135deg, #e3d5ff, #ffd8ef);
     }
 
     body.theme3 {
-      background: linear-gradient(135deg, #c9f3ff, #dfffe9);
+      background: linear-gradient(135deg, #bdefff, #d9fff0);
     }
 
     body.theme4 {
-      background: linear-gradient(135deg, #ffe1cf, #ffd6e8);
+      background: linear-gradient(135deg, #ffd5bd, #ffd9ea);
     }
 
     body.theme5 {
-      background: linear-gradient(135deg, #ffd1c1, #ffe8b8);
+      background: linear-gradient(135deg, #ffc8b5, #ffe5ad);
     }
 
     body.theme6 {
-      background: linear-gradient(135deg, #e5d6ff, #ffd9f0);
+      background: linear-gradient(135deg, #dfd0ff, #ffcfe8);
     }
 
     body.theme7 {
-      background: linear-gradient(135deg, #d7efff, #e7ddff);
+      background: linear-gradient(135deg, #d0edff, #e4d9ff);
     }
 
     body.theme8 {
-      background: linear-gradient(135deg, #d9f5c8, #fff2b8);
+      background: linear-gradient(135deg, #d2f5c4, #fff0aa);
     }
 
     body.theme9 {
-      background: linear-gradient(135deg, #ffd0a8, #ffb8a8);
+      background: linear-gradient(135deg, #ffc99e, #ffb9aa);
     }
 
     body.theme10 {
-      background: linear-gradient(135deg, #ffcad8, #ffd9e9, #fff0c7);
+      background: linear-gradient(135deg, #ffbfd1, #ffd4e5, #ffe9ad);
     }
 
 
-    /* ---------------------------------
+    /* =========================================
        DECORATIONS
-    --------------------------------- */
+    ========================================= */
 
     .decorations {
       position: fixed;
       inset: 0;
+
       pointer-events: none;
+
       overflow: hidden;
+
       z-index: 0;
     }
 
     .decoration {
       position: absolute;
+
       user-select: none;
-      animation: float 5s ease-in-out infinite;
-    }
 
-    .d1 {
-      top: 7%;
-      left: 7%;
-      font-size: 28px;
-      transform: rotate(-18deg);
-      animation-delay: 0s;
-    }
+      animation:
+        floatDecoration var(--float-time) ease-in-out infinite;
 
-    .d2 {
-      top: 15%;
-      right: 8%;
-      font-size: 34px;
-      transform: rotate(12deg);
-      animation-delay: 1s;
-    }
+      animation-delay: var(--delay);
 
-    .d3 {
-      top: 32%;
-      left: 3%;
-      font-size: 21px;
-      transform: rotate(8deg);
-      animation-delay: 2s;
-    }
+      transform: rotate(var(--rotation));
 
-    .d4 {
-      top: 42%;
-      right: 4%;
-      font-size: 27px;
-      transform: rotate(-12deg);
-      animation-delay: 0.5s;
-    }
+      opacity: var(--opacity);
 
-    .d5 {
-      top: 58%;
-      left: 7%;
-      font-size: 34px;
-      transform: rotate(14deg);
-      animation-delay: 1.5s;
-    }
-
-    .d6 {
-      top: 68%;
-      right: 7%;
-      font-size: 23px;
-      transform: rotate(-8deg);
-      animation-delay: 2.5s;
-    }
-
-    .d7 {
-      bottom: 13%;
-      left: 13%;
-      font-size: 25px;
-      transform: rotate(-15deg);
-      animation-delay: 1s;
-    }
-
-    .d8 {
-      bottom: 8%;
-      right: 13%;
-      font-size: 31px;
-      transform: rotate(15deg);
-      animation-delay: 2s;
-    }
-
-    .d9 {
-      top: 25%;
-      left: 17%;
-      font-size: 15px;
-      animation-delay: 3s;
-    }
-
-    .d10 {
-      bottom: 28%;
-      right: 18%;
-      font-size: 17px;
-      animation-delay: 1.5s;
-    }
-
-    .d11 {
-      top: 8%;
-      right: 27%;
-      font-size: 18px;
-      transform: rotate(20deg);
-      animation-delay: 2.5s;
-    }
-
-    .d12 {
-      bottom: 7%;
-      left: 30%;
-      font-size: 19px;
-      transform: rotate(-10deg);
-      animation-delay: 0.5s;
+      font-size: var(--size);
     }
 
 
-    @keyframes float {
-      0%, 100% {
-        margin-top: 0;
+    @keyframes floatDecoration {
+
+      0% {
+        transform:
+          translateY(0)
+          rotate(var(--rotation));
       }
 
       50% {
-        margin-top: -7px;
+        transform:
+          translateY(-12px)
+          rotate(calc(var(--rotation) + 7deg));
+      }
+
+      100% {
+        transform:
+          translateY(0)
+          rotate(var(--rotation));
       }
     }
 
 
-    /* ---------------------------------
+    /* =========================================
+       DIFFERENT DECORATION SIZES
+    ========================================= */
+
+    .tiny {
+      --size: 13px;
+      --opacity: 0.65;
+    }
+
+    .small {
+      --size: 20px;
+      --opacity: 0.75;
+    }
+
+    .medium {
+      --size: 30px;
+      --opacity: 0.9;
+    }
+
+    .large {
+      --size: 43px;
+      --opacity: 0.95;
+    }
+
+    .huge {
+      --size: 62px;
+      --opacity: 0.9;
+    }
+
+
+    /* =========================================
+       DIFFERENT POSITIONS
+    ========================================= */
+
+    .pos1 {
+      top: 5%;
+      left: 5%;
+      --rotation: -18deg;
+    }
+
+    .pos2 {
+      top: 9%;
+      right: 8%;
+      --rotation: 14deg;
+    }
+
+    .pos3 {
+      top: 23%;
+      left: 3%;
+      --rotation: 8deg;
+    }
+
+    .pos4 {
+      top: 29%;
+      right: 4%;
+      --rotation: -14deg;
+    }
+
+    .pos5 {
+      top: 47%;
+      left: 7%;
+      --rotation: 18deg;
+    }
+
+    .pos6 {
+      top: 53%;
+      right: 6%;
+      --rotation: -9deg;
+    }
+
+    .pos7 {
+      bottom: 25%;
+      left: 4%;
+      --rotation: -12deg;
+    }
+
+    .pos8 {
+      bottom: 19%;
+      right: 8%;
+      --rotation: 16deg;
+    }
+
+    .pos9 {
+      bottom: 7%;
+      left: 17%;
+      --rotation: -20deg;
+    }
+
+    .pos10 {
+      bottom: 8%;
+      right: 20%;
+      --rotation: 12deg;
+    }
+
+    .pos11 {
+      top: 16%;
+      left: 20%;
+      --rotation: 25deg;
+    }
+
+    .pos12 {
+      top: 68%;
+      right: 19%;
+      --rotation: -25deg;
+    }
+
+    .pos13 {
+      bottom: 31%;
+      left: 20%;
+      --rotation: 8deg;
+    }
+
+    .pos14 {
+      top: 38%;
+      right: 18%;
+      --rotation: -18deg;
+    }
+
+
+    /* =========================================
+       ANIMATION SPEEDS
+    ========================================= */
+
+    .slow {
+      --float-time: 6s;
+      --delay: 0s;
+    }
+
+    .normal {
+      --float-time: 4.5s;
+      --delay: 1s;
+    }
+
+    .fast {
+      --float-time: 3.5s;
+      --delay: 1.8s;
+    }
+
+
+    /* =========================================
        MAIN CARD
-    --------------------------------- */
+    ========================================= */
 
     .page {
       width: 100%;
       max-width: 620px;
+
       position: relative;
-      z-index: 2;
+
+      z-index: 5;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.97);
 
       border-radius: 28px;
 
       padding: 45px 30px 48px;
 
-      box-shadow:
-        0 15px 45px rgba(70, 30, 50, 0.18),
-        0 3px 10px rgba(70, 30, 50, 0.08);
-
       text-align: center;
 
       position: relative;
+
       overflow: hidden;
 
-      border: 3px solid rgba(255, 255, 255, 0.8);
+      border: 3px solid rgba(255, 255, 255, 0.9);
+
+      box-shadow:
+        0 18px 55px rgba(60, 30, 50, 0.18),
+        0 3px 12px rgba(60, 30, 50, 0.08);
     }
 
 
-    /* Decorative corner shapes */
+    /* Soft decorative corners */
 
     .card::before {
       content: "✦";
-      position: absolute;
-      top: -20px;
-      left: -5px;
 
-      font-size: 95px;
+      position: absolute;
+
+      top: -27px;
+      left: -7px;
+
+      font-size: 110px;
+
       color: var(--accent);
 
-      opacity: 0.12;
+      opacity: 0.10;
 
       transform: rotate(-20deg);
     }
 
     .card::after {
       content: "✦";
-      position: absolute;
-      bottom: -25px;
-      right: -5px;
 
-      font-size: 105px;
+      position: absolute;
+
+      bottom: -30px;
+      right: -8px;
+
+      font-size: 120px;
+
       color: var(--accent);
 
-      opacity: 0.12;
+      opacity: 0.10;
 
       transform: rotate(20deg);
     }
 
 
-    /* ---------------------------------
+    /* =========================================
        TOP DECORATION
-    --------------------------------- */
+    ========================================= */
 
     .top-decoration {
       color: var(--accent);
 
-      font-size: 21px;
+      font-size: 20px;
 
       letter-spacing: 7px;
 
       margin-bottom: 25px;
 
       position: relative;
-      z-index: 3;
+
+      z-index: 10;
     }
 
 
-    /* ---------------------------------
-       STATEMENT
-    --------------------------------- */
+    /* =========================================
+       RED/COLOURFUL STATEMENT
+    ========================================= */
 
     .statement {
       color: var(--accent);
@@ -296,17 +381,19 @@
       margin: 0 auto 30px;
 
       position: relative;
-      z-index: 3;
+
+      z-index: 10;
     }
 
 
-    /* ---------------------------------
-       CLUE
-    --------------------------------- */
+    /* =========================================
+       CLUE TEXT
+    ========================================= */
 
     .clue {
       position: relative;
-      z-index: 3;
+
+      z-index: 10;
     }
 
     .clue p {
@@ -322,12 +409,13 @@
     }
 
 
-    /* ---------------------------------
+    /* =========================================
        DIVIDERS
-    --------------------------------- */
+    ========================================= */
 
     .divider {
       width: 58px;
+
       height: 2px;
 
       background: var(--accent);
@@ -338,12 +426,13 @@
     }
 
 
-    /* ---------------------------------
+    /* =========================================
        FINAL MESSAGE
-    --------------------------------- */
+    ========================================= */
 
     .final-message {
       font-size: 19px;
+
       line-height: 1.9;
     }
 
@@ -352,9 +441,129 @@
     }
 
 
-    /* ---------------------------------
+    /* =========================================
+       FIREWORKS — FINAL PAGE ONLY
+    ========================================= */
+
+    .fireworks {
+      position: fixed;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      overflow: hidden;
+
+      z-index: 1;
+    }
+
+    .firework {
+      position: absolute;
+
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      opacity: 0;
+
+      animation: explode 3.8s infinite;
+    }
+
+
+    .firework::before,
+    .firework::after {
+      content: "";
+
+      position: absolute;
+
+      width: 5px;
+      height: 5px;
+
+      border-radius: 50%;
+
+      box-shadow:
+        0 -55px 0 1px #e63946,
+        39px -39px 0 1px #ff7b00,
+        55px 0 0 1px #9b5de5,
+        39px 39px 0 1px #00a6c7,
+        0 55px 0 1px #55a630,
+        -39px 39px 0 1px #f72585,
+        -55px 0 0 1px #e63946,
+        -39px -39px 0 1px #ffb703;
+    }
+
+
+    .firework::before {
+      transform: rotate(22deg);
+    }
+
+    .firework::after {
+      transform: rotate(67deg);
+    }
+
+
+    .firework.fw1 {
+      top: 13%;
+      left: 17%;
+
+      animation-delay: 0s;
+    }
+
+    .firework.fw2 {
+      top: 20%;
+      right: 17%;
+
+      animation-delay: 1.2s;
+    }
+
+    .firework.fw3 {
+      top: 68%;
+      left: 12%;
+
+      animation-delay: 2.1s;
+    }
+
+    .firework.fw4 {
+      top: 63%;
+      right: 13%;
+
+      animation-delay: 0.7s;
+    }
+
+
+    @keyframes explode {
+
+      0% {
+        transform: scale(0.1);
+        opacity: 0;
+      }
+
+      10% {
+        transform: scale(0.5);
+        opacity: 1;
+      }
+
+      35% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      60% {
+        transform: scale(1.25);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+
+
+    /* =========================================
        MOBILE
-    --------------------------------- */
+    ========================================= */
 
     @media (max-width: 600px) {
 
@@ -364,6 +573,7 @@
 
       .card {
         padding: 38px 21px 42px;
+
         border-radius: 23px;
       }
 
@@ -373,65 +583,103 @@
 
       .clue p {
         font-size: 17px;
+
         line-height: 1.85;
       }
 
       .top-decoration {
         font-size: 18px;
+
         letter-spacing: 5px;
       }
 
-      .decoration.d1 {
-        left: 2%;
+      .huge {
+        --size: 48px;
       }
 
-      .decoration.d2 {
-        right: 2%;
+      .large {
+        --size: 36px;
       }
 
-      .decoration.d5 {
-        left: 2%;
+      .medium {
+        --size: 26px;
       }
 
-      .decoration.d6 {
-        right: 2%;
-      }
-
-      .decoration.d7 {
-        left: 5%;
-      }
-
-      .decoration.d8 {
-        right: 5%;
+      .firework::before,
+      .firework::after {
+        box-shadow:
+          0 -42px 0 1px #e63946,
+          30px -30px 0 1px #ff7b00,
+          42px 0 0 1px #9b5de5,
+          30px 30px 0 1px #00a6c7,
+          0 42px 0 1px #55a630,
+          -30px 30px 0 1px #f72585,
+          -42px 0 0 1px #e63946,
+          -30px -30px 0 1px #ffb703;
       }
     }
+
   </style>
 </head>
 
 
 <body>
 
-  <!-- ---------------------------------
+  <!-- =========================================
        BIRTHDAY DECORATIONS
-  ---------------------------------- -->
+  ========================================== -->
 
-  <div class="decorations">
+  <div class="decorations" id="decorations">
 
-    <span class="decoration d1">🎈</span>
-    <span class="decoration d2">🎀</span>
-    <span class="decoration d3">✦</span>
-    <span class="decoration d4">🎁</span>
-    <span class="decoration d5">🎉</span>
-    <span class="decoration d6">★</span>
-    <span class="decoration d7">🎈</span>
-    <span class="decoration d8">🎊</span>
-    <span class="decoration d9">✦</span>
-    <span class="decoration d10">♥</span>
-    <span class="decoration d11">✧</span>
-    <span class="decoration d12">🎀</span>
+    <span class="decoration huge pos1 slow">🎈</span>
+
+    <span class="decoration small pos2 normal">✦</span>
+
+    <span class="decoration large pos3 fast">🎀</span>
+
+    <span class="decoration tiny pos4 slow">✦</span>
+
+    <span class="decoration medium pos5 normal">🎁</span>
+
+    <span class="decoration large pos6 fast">🎉</span>
+
+    <span class="decoration small pos7 slow">★</span>
+
+    <span class="decoration huge pos8 normal">🎈</span>
+
+    <span class="decoration tiny pos9 fast">✧</span>
+
+    <span class="decoration medium pos10 slow">🎊</span>
+
+    <span class="decoration small pos11 normal">★</span>
+
+    <span class="decoration large pos12 fast">🎀</span>
+
+    <span class="decoration tiny pos13 slow">✦</span>
+
+    <span class="decoration medium pos14 normal">♥</span>
 
   </div>
 
+
+  <!-- =========================================
+       FIREWORKS
+       Hidden unless clue 10 is active
+  ========================================== -->
+
+  <div class="fireworks" id="fireworks" style="display:none;">
+
+    <div class="firework fw1"></div>
+    <div class="firework fw2"></div>
+    <div class="firework fw3"></div>
+    <div class="firework fw4"></div>
+
+  </div>
+
+
+  <!-- =========================================
+       MAIN CARD
+  ========================================== -->
 
   <main class="page">
 
@@ -450,9 +698,9 @@
 
   <script>
 
-    /* ---------------------------------
-       CLUES
-    ---------------------------------- */
+    /* =========================================
+       ALL CLUES
+    ========================================== */
 
     const clues = {
 
@@ -718,22 +966,12 @@
     };
 
 
-    /* ---------------------------------
-       GET CLUE NUMBER
-    ---------------------------------- */
-
-    const params = new URLSearchParams(window.location.search);
-
-    const clueNumber = parseInt(params.get("clue"));
-
-    const container = document.getElementById("clue-container");
-
-
-    /* ---------------------------------
-       COLOUR THEMES
-    ---------------------------------- */
+    /* =========================================
+       COLOUR FOR EACH PAGE
+    ========================================== */
 
     const themes = {
+
       1: "#e63946",
       2: "#9b5de5",
       3: "#00a6c7",
@@ -744,29 +982,61 @@
       8: "#55a630",
       9: "#e85d04",
       10: "#d62839"
+
     };
 
 
-    /* ---------------------------------
-       LOAD THE PAGE
-    ---------------------------------- */
+    /* =========================================
+       GET THE CLUE NUMBER
+    ========================================== */
 
-    const activeClue = clues[clueNumber] || clues[1];
+    const params =
+      new URLSearchParams(window.location.search);
 
-    const activeNumber = clues[clueNumber]
-      ? clueNumber
-      : 1;
+    const requestedClue =
+      parseInt(params.get("clue"));
+
+    const activeNumber =
+      clues[requestedClue]
+        ? requestedClue
+        : 1;
 
 
-    container.innerHTML = activeClue;
+    /* =========================================
+       SHOW THE CORRECT CLUE
+    ========================================== */
+
+    const container =
+      document.getElementById("clue-container");
+
+    container.innerHTML =
+      clues[activeNumber];
 
 
-    document.body.classList.add("theme" + activeNumber);
+    /* =========================================
+       APPLY THE PAGE THEME
+    ========================================== */
+
+    document.body.classList.add(
+      "theme" + activeNumber
+    );
 
     document.documentElement.style.setProperty(
       "--accent",
       themes[activeNumber]
     );
+
+
+    /* =========================================
+       FIREWORKS ONLY ON FINAL PAGE
+    ========================================== */
+
+    if (activeNumber === 10) {
+
+      document.getElementById("fireworks").style.display =
+        "block";
+
+    }
 
   </script>
 
