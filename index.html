@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Treasure Hunt ❤️</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        background: linear-gradient(135deg, #fff5f7, #f7f1ff);
+        color: #3d3035;
+        min-height: 100vh;
+    }
+
+    .app {
+        max-width: 650px;
+        margin: auto;
+        min-height: 100vh;
+        padding: 25px 18px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.94);
+        border-radius: 24px;
+        padding: 30px 24px;
+        box-shadow: 0 12px 35px rgba(70, 40, 55, 0.12);
+        text-align: center;
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-top: 0;
+        color: #9d526c;
+    }
+
+    h2 {
+        font-size: 1.55rem;
+        color: #9d526c;
+        margin-bottom: 18px;
+    }
+
+    p {
+        font-size: 1.08rem;
+        line-height: 1.7;
+        margin: 12px 0;
+    }
+
+    .emoji {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+
+    .clue-number {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #a98291;
+        margin-bottom: 12px;
+    }
+
+    .clue-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: 10px 0 22px;
+        color: #78475b;
+    }
+
+    .divider {
+        width: 70px;
+        height: 2px;
+        background: #d8a9b9;
+        margin: 22px auto;
+    }
+
+    .button {
+        display: inline-block;
+        border: none;
+        border-radius: 50px;
+        padding: 15px 28px;
+        margin-top: 22px;
+        background: #9d526c;
+        color: white;
+        font-family: inherit;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 5px 14px rgba(157,82,108,0.25);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 18px rgba(157,82,108,0.32);
+    }
+
+    .progress {
+        margin-top: 20px;
+        font-size: 0.82rem;
+        color: #a98291;
+    }
+
+    .money {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #9d526c;
+        margin: 15px 0;
+    }
+
+    .final {
+        background: linear-gradient(135deg, #fff7f9, #fff);
+    }
+
+    .final h1 {
+        font-size: 2.2rem;
+    }
+
+    .tattoo {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #78475b;
+        margin: 25px 0;
+    }
+
+    .heart {
+        font-size: 1.5rem;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="app">
+    <div id="app"></div>
+</div>
+
+<script>
+
+const clues = [
+
+    {
+        number: "Clue 1",
+        emoji: "🍃",
+        title: "CREAMY SPINACH / KITCHEN",
+        text: `
+            Your clue is green, it's creamy, and it's made with love especially for you.
+        `
+    },
+
+    {
+        number: "Clue 2",
+        emoji: "🪞",
+        title: "BATHROOM MIRROR",
+        text: `
+            <strong>Well done! You found your next surprise,</strong> but don't get too comfortable with the prize.<br><br>
+            Now go somewhere that has a view of you.
+            Your next little treasure is waiting there too. 👀
+        `
+    },
+
+    {
+        number: "Clue 3",
+        emoji: "💧",
+        title: "WATER FOUNTAIN",
+        text: `
+            <strong>You're doing great, don't stop now!</strong><br><br>
+            Your next clue is waiting where water flows, but where it goes, nobody knows. 💧<br><br>
+            Follow the sound and take a look, your next surprise is hiding in this nook. 👀
+        `
+    },
+
+    {
+        number: "Clue 4",
+        emoji: "🛏️",
+        title: "SPARE BEDROOM",
+        text: `
+            <strong>You're on a roll, so don't delay!</strong><br><br>
+            Your next clue is hiding where I used to stay. ❤️<br><br>
+            A room that holds a little history, and maybe a memory or two of me. 😂<br><br>
+            Go find the room that was once mine...
+        `
+    },
+
+    {
+        number: "Clue 5",
+        emoji: "🛋️",
+        title: "LOUNGE / COUCH",
+        text: `
+            <strong>Now go find somewhere</strong> your bum goes when you're ready to relax. 😂<br><br>
+            Where you sit back, get comfy and stay, especially when you've had a long day.
+        `
+    },
+
+    {
+        number: "Clue 6",
+        emoji: "👗",
+        title: "HER WARDROBE",
+        text: `
+            <strong>You're getting closer, don't you know?</strong><br><br>
+            Now to somewhere your clothes like to go. 👗<br><br>
+            Dresses and shirts all hiding away, waiting for you to choose them one day. 😂<br><br>
+            Go have a look where your clothes stay...
+        `
+    },
+
+    {
+        number: "Clue 7",
+        emoji: "🛏️",
+        title: "HER PILLOW",
+        text: `
+            <strong>Look at you, making money! 😂</strong><br><br>
+            You're getting closer, don't stop the chase, your next clue is hiding in a very familiar place.<br><br>
+            It's somewhere soft where you rest your face, and hopefully dream of winning this race.
+        `
+    },
+
+    {
+        number: "Clue 8",
+        emoji: "🌳",
+        title: "GARDEN TREE",
+        text: `
+            <strong>Time to leave the bedroom behind... 🌳</strong><br><br>
+            Your next clue is waiting outside.<br><br>
+            Look somewhere that gives a little shade, where nature has its own little parade.
+        `
+    },
+
+    {
+        number: "Clue 9",
+        emoji: "🔥",
+        title: "BRAAI — FINAL CLUE",
+        text: `
+            <strong>The garden holds one last surprise! 🌳❤️</strong><br><br>
+            A birthday braai means fire and food, good drinks, good laughs and a birthday mood. 🎂🔥<br><br>
+            So where will the flames be burning bright, and where will we celebrate your birthday tonight?
+        `
+    }
+
+];
+
+let currentClue = 0;
+
+function showWelcome() {
+    document.getElementById("app").innerHTML = `
+        <div class="card">
+            <div class="emoji">🎂❤️</div>
+
+            <h1>Happy Birthday!</h1>
+
+            <div class="divider"></div>
+
+            <p>You thought this was just a birthday gift, but I've decided to make you work for it. 😂</p>
+
+            <p><strong>Scan the code and see where it goes.</strong></p>
+
+            <button class="button" onclick="startHunt()">
+                Let's Go! 🎁
+            </button>
+        </div>
+    `;
+}
+
+function startHunt() {
+    currentClue = 0;
+    showClue();
+}
+
+function showClue() {
+
+    const clue = clues[currentClue];
+
+    document.getElementById("app").innerHTML = `
+        <div class="card">
+
+            <div class="clue-number">${clue.number}</div>
+
+            <div class="emoji">${clue.emoji}</div>
+
+            <div class="clue-title">${clue.title}</div>
+
+            <div class="divider"></div>
+
+            <p>${clue.text}</p>
+
+            <button class="button" onclick="nextClue()">
+                I've Found It! ❤️
+            </button>
+
+            <div class="progress">
+                ${currentClue + 1} of ${clues.length}
+            </div>
+
+        </div>
+    `;
+}
+
+function nextClue() {
+
+    if (currentClue < clues.length - 1) {
+        currentClue++;
+        showClue();
+    } else {
+        showFinal();
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+function showFinal() {
+
+    document.getElementById("app").innerHTML = `
+        <div class="card final">
+
+            <div class="emoji">🎉❤️</div>
+
+            <h1>YOU FOUND IT! 🎉❤️</h1>
+
+            <div class="divider"></div>
+
+            <p>
+                I could have just handed you your birthday present,
+                but where's the fun in that? 😂
+            </p>
+
+            <p>
+                This is a little something towards the tattoo you've been wanting. 🖤
+            </p>
+
+            <div class="tattoo">
+                Happy Birthday! ❤️🎀<br><br>
+                Now go get yourself some ink!
+            </div>
+
+            <div class="heart">❤️</div>
+
+        </div>
+    `;
+}
+
+showWelcome();
+
+</script>
+
+</body>
+</html>
