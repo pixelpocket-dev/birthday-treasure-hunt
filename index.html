@@ -14,103 +14,195 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: #080808;
-      color: #242020;
       font-family: Georgia, "Times New Roman", serif;
+      color: #292525;
 
       display: flex;
       justify-content: center;
       align-items: center;
 
-      padding: 35px 18px;
+      padding: 30px 15px;
 
       position: relative;
       overflow-x: hidden;
+
+      transition:
+        background 0.5s ease,
+        color 0.5s ease;
     }
 
-    /* BIRTHDAY DECORATIONS */
+    /* ---------------------------------
+       PAGE THEMES
+    --------------------------------- */
 
-    body::before {
-      content:
-        "♥   ✦   ♥   🎀   ♥   ✦   ♥   🎈   ♥   ✦   ♥";
-      position: fixed;
-      top: 12px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-
-      color: #e63946;
-      font-size: 22px;
-      letter-spacing: 10px;
-
-      opacity: 0.9;
-      z-index: 0;
+    body.theme1 {
+      background: linear-gradient(135deg, #ffdce5, #fff3e8);
     }
 
-    body::after {
-      content:
-        "♥   ✦   ♥   🎀   ♥   ✦   ♥   🎈   ♥   ✦   ♥";
+    body.theme2 {
+      background: linear-gradient(135deg, #e8dcff, #ffdff0);
+    }
+
+    body.theme3 {
+      background: linear-gradient(135deg, #c9f3ff, #dfffe9);
+    }
+
+    body.theme4 {
+      background: linear-gradient(135deg, #ffe1cf, #ffd6e8);
+    }
+
+    body.theme5 {
+      background: linear-gradient(135deg, #ffd1c1, #ffe8b8);
+    }
+
+    body.theme6 {
+      background: linear-gradient(135deg, #e5d6ff, #ffd9f0);
+    }
+
+    body.theme7 {
+      background: linear-gradient(135deg, #d7efff, #e7ddff);
+    }
+
+    body.theme8 {
+      background: linear-gradient(135deg, #d9f5c8, #fff2b8);
+    }
+
+    body.theme9 {
+      background: linear-gradient(135deg, #ffd0a8, #ffb8a8);
+    }
+
+    body.theme10 {
+      background: linear-gradient(135deg, #ffcad8, #ffd9e9, #fff0c7);
+    }
+
+
+    /* ---------------------------------
+       DECORATIONS
+    --------------------------------- */
+
+    .decorations {
       position: fixed;
-      bottom: 12px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-
-      color: #e63946;
-      font-size: 22px;
-      letter-spacing: 10px;
-
-      opacity: 0.9;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
       z-index: 0;
     }
 
     .decoration {
-      position: fixed;
-      color: #e63946;
-      z-index: 0;
-      pointer-events: none;
+      position: absolute;
+      user-select: none;
+      animation: float 5s ease-in-out infinite;
     }
 
-    .decoration.one {
-      top: 12%;
-      left: 5%;
-      font-size: 34px;
-      transform: rotate(-15deg);
-    }
-
-    .decoration.two {
-      top: 22%;
-      right: 5%;
-      font-size: 27px;
-      transform: rotate(12deg);
-    }
-
-    .decoration.three {
-      top: 45%;
-      left: 3%;
-      font-size: 24px;
-    }
-
-    .decoration.four {
-      top: 52%;
-      right: 3%;
-      font-size: 35px;
-      transform: rotate(-10deg);
-    }
-
-    .decoration.five {
-      bottom: 23%;
-      left: 6%;
-      font-size: 27px;
-      transform: rotate(15deg);
-    }
-
-    .decoration.six {
-      bottom: 18%;
-      right: 6%;
+    .d1 {
+      top: 7%;
+      left: 7%;
       font-size: 28px;
-      transform: rotate(-15deg);
+      transform: rotate(-18deg);
+      animation-delay: 0s;
     }
+
+    .d2 {
+      top: 15%;
+      right: 8%;
+      font-size: 34px;
+      transform: rotate(12deg);
+      animation-delay: 1s;
+    }
+
+    .d3 {
+      top: 32%;
+      left: 3%;
+      font-size: 21px;
+      transform: rotate(8deg);
+      animation-delay: 2s;
+    }
+
+    .d4 {
+      top: 42%;
+      right: 4%;
+      font-size: 27px;
+      transform: rotate(-12deg);
+      animation-delay: 0.5s;
+    }
+
+    .d5 {
+      top: 58%;
+      left: 7%;
+      font-size: 34px;
+      transform: rotate(14deg);
+      animation-delay: 1.5s;
+    }
+
+    .d6 {
+      top: 68%;
+      right: 7%;
+      font-size: 23px;
+      transform: rotate(-8deg);
+      animation-delay: 2.5s;
+    }
+
+    .d7 {
+      bottom: 13%;
+      left: 13%;
+      font-size: 25px;
+      transform: rotate(-15deg);
+      animation-delay: 1s;
+    }
+
+    .d8 {
+      bottom: 8%;
+      right: 13%;
+      font-size: 31px;
+      transform: rotate(15deg);
+      animation-delay: 2s;
+    }
+
+    .d9 {
+      top: 25%;
+      left: 17%;
+      font-size: 15px;
+      animation-delay: 3s;
+    }
+
+    .d10 {
+      bottom: 28%;
+      right: 18%;
+      font-size: 17px;
+      animation-delay: 1.5s;
+    }
+
+    .d11 {
+      top: 8%;
+      right: 27%;
+      font-size: 18px;
+      transform: rotate(20deg);
+      animation-delay: 2.5s;
+    }
+
+    .d12 {
+      bottom: 7%;
+      left: 30%;
+      font-size: 19px;
+      transform: rotate(-10deg);
+      animation-delay: 0.5s;
+    }
+
+
+    @keyframes float {
+      0%, 100% {
+        margin-top: 0;
+      }
+
+      50% {
+        margin-top: -7px;
+      }
+    }
+
+
+    /* ---------------------------------
+       MAIN CARD
+    --------------------------------- */
 
     .page {
       width: 100%;
@@ -119,72 +211,84 @@
       z-index: 2;
     }
 
-    /* WHITE CARD */
-
     .card {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.96);
 
       border-radius: 28px;
 
-      padding: 48px 32px 50px;
+      padding: 45px 30px 48px;
 
       box-shadow:
-        0 0 0 2px rgba(230, 57, 70, 0.15),
-        0 18px 60px rgba(0, 0, 0, 0.65);
+        0 15px 45px rgba(70, 30, 50, 0.18),
+        0 3px 10px rgba(70, 30, 50, 0.08);
 
       text-align: center;
 
       position: relative;
       overflow: hidden;
+
+      border: 3px solid rgba(255, 255, 255, 0.8);
     }
 
-    /* Decorative corner hearts */
+
+    /* Decorative corner shapes */
 
     .card::before {
-      content: "♥";
+      content: "✦";
       position: absolute;
-
       top: -20px;
-      left: -8px;
+      left: -5px;
 
-      font-size: 100px;
-      color: #e63946;
+      font-size: 95px;
+      color: var(--accent);
 
-      opacity: 0.08;
+      opacity: 0.12;
 
       transform: rotate(-20deg);
     }
 
     .card::after {
-      content: "♥";
+      content: "✦";
       position: absolute;
-
       bottom: -25px;
-      right: -8px;
+      right: -5px;
 
-      font-size: 110px;
-      color: #e63946;
+      font-size: 105px;
+      color: var(--accent);
 
-      opacity: 0.08;
+      opacity: 0.12;
 
       transform: rotate(20deg);
     }
 
-    /* Small decorative line */
+
+    /* ---------------------------------
+       TOP DECORATION
+    --------------------------------- */
 
     .top-decoration {
-      color: #e63946;
-      font-size: 22px;
-      letter-spacing: 8px;
+      color: var(--accent);
+
+      font-size: 21px;
+
+      letter-spacing: 7px;
+
       margin-bottom: 25px;
+
+      position: relative;
+      z-index: 3;
     }
 
-    /* RED INTRODUCTORY STATEMENT */
+
+    /* ---------------------------------
+       STATEMENT
+    --------------------------------- */
 
     .statement {
-      color: #d62839;
+      color: var(--accent);
 
       font-size: 22px;
+
       font-weight: bold;
 
       line-height: 1.5;
@@ -195,7 +299,10 @@
       z-index: 3;
     }
 
-    /* CLUE TEXT */
+
+    /* ---------------------------------
+       CLUE
+    --------------------------------- */
 
     .clue {
       position: relative;
@@ -204,6 +311,7 @@
 
     .clue p {
       font-size: 18px;
+
       line-height: 1.9;
 
       margin: 0 0 22px;
@@ -213,20 +321,26 @@
       margin-bottom: 0;
     }
 
-    /* RED DIVIDERS */
+
+    /* ---------------------------------
+       DIVIDERS
+    --------------------------------- */
 
     .divider {
-      width: 65px;
+      width: 58px;
       height: 2px;
 
-      background: #e63946;
+      background: var(--accent);
 
-      opacity: 0.45;
+      opacity: 0.4;
 
       margin: 27px auto;
     }
 
-    /* FINAL MESSAGE */
+
+    /* ---------------------------------
+       FINAL MESSAGE
+    --------------------------------- */
 
     .final-message {
       font-size: 19px;
@@ -234,19 +348,22 @@
     }
 
     .final-message strong {
-      color: #d62839;
+      color: var(--accent);
     }
 
-    /* MOBILE */
+
+    /* ---------------------------------
+       MOBILE
+    --------------------------------- */
 
     @media (max-width: 600px) {
 
       body {
-        padding: 32px 13px;
+        padding: 25px 12px;
       }
 
       .card {
-        padding: 40px 21px 43px;
+        padding: 38px 21px 42px;
         border-radius: 23px;
       }
 
@@ -261,46 +378,59 @@
 
       .top-decoration {
         font-size: 18px;
-        letter-spacing: 6px;
+        letter-spacing: 5px;
       }
 
-      .decoration.one {
+      .decoration.d1 {
         left: 2%;
       }
 
-      .decoration.two {
+      .decoration.d2 {
         right: 2%;
       }
 
-      .decoration.three {
-        left: 1%;
-      }
-
-      .decoration.four {
-        right: 1%;
-      }
-
-      .decoration.five {
+      .decoration.d5 {
         left: 2%;
       }
 
-      .decoration.six {
+      .decoration.d6 {
         right: 2%;
+      }
+
+      .decoration.d7 {
+        left: 5%;
+      }
+
+      .decoration.d8 {
+        right: 5%;
       }
     }
   </style>
 </head>
 
+
 <body>
 
-  <!-- Birthday decorations around the page -->
+  <!-- ---------------------------------
+       BIRTHDAY DECORATIONS
+  ---------------------------------- -->
 
-  <div class="decoration one">♥</div>
-  <div class="decoration two">✦</div>
-  <div class="decoration three">♥</div>
-  <div class="decoration four">🎀</div>
-  <div class="decoration five">✦</div>
-  <div class="decoration six">♥</div>
+  <div class="decorations">
+
+    <span class="decoration d1">🎈</span>
+    <span class="decoration d2">🎀</span>
+    <span class="decoration d3">✦</span>
+    <span class="decoration d4">🎁</span>
+    <span class="decoration d5">🎉</span>
+    <span class="decoration d6">★</span>
+    <span class="decoration d7">🎈</span>
+    <span class="decoration d8">🎊</span>
+    <span class="decoration d9">✦</span>
+    <span class="decoration d10">♥</span>
+    <span class="decoration d11">✧</span>
+    <span class="decoration d12">🎀</span>
+
+  </div>
 
 
   <main class="page">
@@ -308,7 +438,7 @@
     <div class="card">
 
       <div class="top-decoration">
-        ♥ ✦ ♥
+        ✦ 🎉 ✦
       </div>
 
       <div id="clue-container"></div>
@@ -319,6 +449,10 @@
 
 
   <script>
+
+    /* ---------------------------------
+       CLUES
+    ---------------------------------- */
 
     const clues = {
 
@@ -584,6 +718,10 @@
     };
 
 
+    /* ---------------------------------
+       GET CLUE NUMBER
+    ---------------------------------- */
+
     const params = new URLSearchParams(window.location.search);
 
     const clueNumber = parseInt(params.get("clue"));
@@ -591,15 +729,44 @@
     const container = document.getElementById("clue-container");
 
 
-    if (clues[clueNumber]) {
+    /* ---------------------------------
+       COLOUR THEMES
+    ---------------------------------- */
 
-      container.innerHTML = clues[clueNumber];
+    const themes = {
+      1: "#e63946",
+      2: "#9b5de5",
+      3: "#00a6c7",
+      4: "#e76f51",
+      5: "#e85d04",
+      6: "#9b5de5",
+      7: "#6c63c7",
+      8: "#55a630",
+      9: "#e85d04",
+      10: "#d62839"
+    };
 
-    } else {
 
-      container.innerHTML = clues[1];
+    /* ---------------------------------
+       LOAD THE PAGE
+    ---------------------------------- */
 
-    }
+    const activeClue = clues[clueNumber] || clues[1];
+
+    const activeNumber = clues[clueNumber]
+      ? clueNumber
+      : 1;
+
+
+    container.innerHTML = activeClue;
+
+
+    document.body.classList.add("theme" + activeNumber);
+
+    document.documentElement.style.setProperty(
+      "--accent",
+      themes[activeNumber]
+    );
 
   </script>
 
