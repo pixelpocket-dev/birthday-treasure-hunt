@@ -7,7 +7,6 @@
 <title>Birthday Treasure Hunt 🎉</title>
 
 <style>
-
 * {
     box-sizing: border-box;
 }
@@ -27,12 +26,12 @@ body {
 body {
     min-height: 100vh;
     overflow-x: hidden;
-    transition: background 0.5s ease;
+    transition: background 0.6s ease;
 }
 
 
 /* =========================================
-   BACKGROUND FOR EACH CLUE
+   PAGE BACKGROUNDS
    ========================================= */
 
 body.theme1 {
@@ -91,68 +90,45 @@ body.theme10 {
 .decoration {
     position: absolute;
 
-    font-size: var(--size);
+    user-select: none;
+
+    line-height: 1;
+
     opacity: var(--opacity);
 
-    user-select: none;
+    font-size: var(--size);
 
     animation:
         float var(--float-time) ease-in-out infinite,
-        wiggle var(--wiggle-time) ease-in-out infinite;
-
-    animation-delay: var(--delay);
-}
-
-.tiny {
-    --size: 13px;
-    --opacity: 0.65;
-}
-
-.small {
-    --size: 19px;
-    --opacity: 0.72;
-}
-
-.medium {
-    --size: 27px;
-    --opacity: 0.78;
-}
-
-.large {
-    --size: 39px;
-    --opacity: 0.84;
-}
-
-.huge {
-    --size: 53px;
-    --opacity: 0.88;
+        sway var(--sway-time) ease-in-out infinite;
 }
 
 @keyframes float {
 
     0%, 100% {
-        transform: translateY(0) rotate(-4deg);
+        transform: translateY(0) rotate(var(--rotation));
     }
 
     50% {
-        transform: translateY(-10px) rotate(5deg);
+        transform: translateY(-12px)
+                   rotate(calc(var(--rotation) + 7deg));
     }
 }
 
-@keyframes wiggle {
+@keyframes sway {
 
     0%, 100% {
         margin-left: 0;
     }
 
     50% {
-        margin-left: 5px;
+        margin-left: 7px;
     }
 }
 
 
 /* =========================================
-   MAIN CARD
+   CARD
    ========================================= */
 
 .page {
@@ -167,7 +143,7 @@ body.theme10 {
     justify-content: center;
     align-items: center;
 
-    padding: 55px 14px;
+    padding: 58px 12px;
 }
 
 .card {
@@ -178,24 +154,23 @@ body.theme10 {
     max-width: 620px;
 
     /*
-       Frosted transparent white
-       so decorations can subtly
-       show through.
+       Much more transparent than before.
+       Decorations remain visible through it.
     */
 
-    background: rgba(255, 255, 255, 0.84);
+    background: rgba(255, 255, 255, 0.62);
 
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.72);
 
     border-radius: 28px;
 
-    padding: 30px 24px 32px;
+    padding: 29px 22px 31px;
 
     box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.10);
+        0 12px 35px rgba(0, 0, 0, 0.09);
 
     text-align: center;
 
@@ -203,50 +178,48 @@ body.theme10 {
 }
 
 
-/* Soft decorative shapes inside card */
+/* Soft shapes inside card */
 
 .card::before {
-
     content: "✦";
 
     position: absolute;
 
     top: -18px;
-    left: -8px;
+    left: -7px;
 
-    font-size: 80px;
+    font-size: 82px;
 
     color: var(--accent);
 
-    opacity: 0.10;
+    opacity: 0.11;
 }
 
 .card::after {
-
     content: "✦";
 
     position: absolute;
 
-    right: -8px;
     bottom: -28px;
+    right: -7px;
 
     font-size: 95px;
 
     color: var(--accent);
 
-    opacity: 0.10;
+    opacity: 0.11;
 }
 
 
 /* =========================================
-   TOP DECORATION
+   CARD CONTENT
    ========================================= */
 
 .top-decoration {
 
     position: relative;
 
-    z-index: 2;
+    z-index: 4;
 
     color: var(--accent);
 
@@ -257,15 +230,9 @@ body.theme10 {
     letter-spacing: 5px;
 }
 
-
-/* =========================================
-   CLUE TEXT
-   ========================================= */
-
 .clue {
-
     position: relative;
-    z-index: 3;
+    z-index: 4;
 }
 
 .statement {
@@ -283,13 +250,15 @@ body.theme10 {
 
 .clue-text {
 
-    color: #333;
+    color: #292929;
 
     font-size: 17px;
 
     line-height: 1.65;
 
     white-space: pre-line;
+
+    text-shadow: 0 1px 1px rgba(255,255,255,0.5);
 }
 
 .divider {
@@ -309,18 +278,18 @@ body.theme10 {
 
 
 /* =========================================
-   FINAL PAGE
+   FINAL MESSAGE
    ========================================= */
 
 .final-message {
 
     color: var(--accent);
 
-    font-size: 28px;
+    font-size: 29px;
 
     font-weight: 900;
 
-    line-height: 1.35;
+    line-height: 1.3;
 
     margin-bottom: 22px;
 }
@@ -340,14 +309,14 @@ body.theme10 {
 
 .heart {
 
-    font-size: 30px;
+    font-size: 31px;
 
     margin-top: 18px;
 }
 
 
 /* =========================================
-   REAL FIREWORKS
+   FIREWORKS
    ========================================= */
 
 .fireworks {
@@ -363,37 +332,37 @@ body.theme10 {
     z-index: 3;
 }
 
-.firework-burst {
+.firework {
 
     position: absolute;
 
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
 
     border-radius: 50%;
 
-    animation: burst 1.8s ease-out forwards;
+    animation: fireworkCore 1.8s ease-out forwards;
 }
 
 .firework-spark {
 
     position: absolute;
 
-    width: 4px;
-    height: 16px;
+    width: 3px;
+    height: 22px;
 
     border-radius: 50%;
 
     transform-origin: 50% 100%;
 
-    animation: spark 1.5s ease-out forwards;
+    animation: fireworkSpark 1.7s cubic-bezier(.15,.7,.25,1) forwards;
 }
 
-@keyframes burst {
+@keyframes fireworkCore {
 
     0% {
         transform: scale(0);
-        opacity: 1;
+        opacity: 0;
     }
 
     15% {
@@ -401,24 +370,29 @@ body.theme10 {
         opacity: 1;
     }
 
+    35% {
+        transform: scale(2);
+        opacity: 1;
+    }
+
     100% {
-        transform: scale(3);
+        transform: scale(5);
         opacity: 0;
     }
 }
 
-@keyframes spark {
+@keyframes fireworkSpark {
 
     0% {
         transform:
             rotate(var(--angle))
             translateY(0)
-            scaleY(0.4);
+            scaleY(0.2);
 
         opacity: 1;
     }
 
-    65% {
+    35% {
         opacity: 1;
     }
 
@@ -440,73 +414,45 @@ body.theme10 {
 @media (max-width: 430px) {
 
     .page {
-        padding: 55px 12px;
+        padding: 54px 11px;
     }
 
     .card {
 
-        padding: 27px 20px 29px;
+        padding: 27px 19px 29px;
 
         border-radius: 25px;
 
-        background: rgba(255, 255, 255, 0.84);
+        /*
+           Even clearer glass effect on phone.
+        */
 
-        backdrop-filter: blur(7px);
-        -webkit-backdrop-filter: blur(7px);
+        background: rgba(255, 255, 255, 0.60);
+
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
     }
 
     .top-decoration {
-
         font-size: 18px;
-
         margin-bottom: 15px;
     }
 
     .statement {
-
         font-size: 20px;
     }
 
     .clue-text {
-
         font-size: 16px;
-
         line-height: 1.6;
     }
 
     .final-message {
-
-        font-size: 25px;
+        font-size: 26px;
     }
 
     .tattoo {
-
         font-size: 18px;
-    }
-
-    /*
-       Keep decorations visible but
-       slightly smaller on phone.
-    */
-
-    .tiny {
-        --size: 12px;
-    }
-
-    .small {
-        --size: 17px;
-    }
-
-    .medium {
-        --size: 23px;
-    }
-
-    .large {
-        --size: 32px;
-    }
-
-    .huge {
-        --size: 43px;
     }
 }
 
@@ -518,13 +464,13 @@ body.theme10 {
 @media (max-width: 360px) {
 
     .page {
-        padding-left: 9px;
-        padding-right: 9px;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 
     .card {
-        padding-left: 17px;
-        padding-right: 17px;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
     .statement {
@@ -543,23 +489,10 @@ body.theme10 {
 <body class="theme1">
 
 
-<!-- =========================================
-     DECORATIONS
-     ========================================= -->
-
 <div class="decorations" id="decorations"></div>
-
-
-<!-- =========================================
-     FIREWORKS
-     ========================================= -->
 
 <div class="fireworks" id="fireworks"></div>
 
-
-<!-- =========================================
-     CARD
-     ========================================= -->
 
 <main class="page">
 
@@ -830,39 +763,81 @@ const themes = {
 
 
 /* =========================================
-   DIFFERENT ICONS FOR EACH PAGE
+   DECORATION COLLECTIONS
    ========================================= */
 
 const decorationSets = {
 
-1: ["🎈","🎀","🎁","★","✦","♥","🎉","✧","✨","🎈","🎁","★","🎀","♥","✦","🎉","✨","🎈"],
+1: [
+"🎈","🎀","🎁","✨","🎉","♥","★","💃",
+"🕺","🎵","🎈","🎁","🎀","✨","🎊",
+"🍹","💃","🎈","★","🎉","🎵","♥"
+],
 
-2: ["🎉","💜","✦","🎀","★","🎈","✨","♥","🎁","💜","🎉","✧","★","🎀","✨","🎈","♥","🎁"],
+2: [
+"🎉","💜","🎀","✨","🎈","💃","🕺","🎵",
+"🍸","🎁","★","💜","🎊","🎈","✨",
+"🎀","💃","🎉","♥","🍹","🎵","🎈"
+],
 
-3: ["💧","✨","🎈","★","✦","🎉","💙","🎀","💧","✨","★","🎈","💙","✦","🎉","💧","🎀","✨"],
+3: [
+"💧","💙","✨","🎈","🎉","🎀","💃","🕺",
+"🥂","★","💧","🎵","🎁","✨","💙",
+"🎈","🎊","💃","♥","🍹","🎀","✨"
+],
 
-4: ["❤️","🎁","✦","🎈","★","🎀","✨","♥","❤️","🎁","★","✦","🎈","🎀","♥","✨","❤️","🎁"],
+4: [
+"❤️","🎁","🎀","🎈","✨","💃","🕺","🎵",
+"🍹","★","❤️","🎉","🎊","🎈","🎁",
+"🎀","💃","✨","♥","🥂","🎵","🎈"
+],
 
-5: ["🎉","🎁","★","🧡","✦","🎈","🎀","✨","🎂","🧡","🎉","🎁","★","🎈","✨","🎀","♥","🎉"],
+5: [
+"🎉","🎁","🎂","🧡","🎈","🎀","✨","💃",
+"🕺","🍻","🎵","★","🔥","🎊","🎈",
+"🎁","🧡","💃","🍹","🎉","✨","🎀"
+],
 
-6: ["🎀","💜","👗","✦","🎈","★","✨","🎉","💜","🎀","👗","✨","★","🎈","🎁","💜","✦","🎉"],
+6: [
+"🎀","💜","👗","✨","🎈","🎉","💃","🕺",
+"🍸","★","🎁","🎵","💜","🎀","✨",
+"🎈","🎊","💃","♥","🥂","🎉","🎵"
+],
 
-7: ["❤️","🎈","✨","★","🎀","✦","🎁","♥","💗","❤️","🎈","✨","★","🎀","💗","🎁","♥","✦"],
+7: [
+"❤️","🎈","✨","🎀","🎁","💃","🕺","🎵",
+"🍹","★","💗","🎉","🎊","❤️","🎈",
+"✨","🎀","💃","♥","🥂","🎵","🎁"
+],
 
-8: ["🌿","🌳","💚","✦","🎈","✨","★","🎀","🌿","💚","🌳","✧","🎈","✨","🌿","★","🎀","💚"],
+8: [
+"🌿","🌳","💚","✨","🎈","🎀","💃","🕺",
+"🍹","★","🌿","🎵","🎁","💚","🎉",
+"🎈","✨","🎊","💃","♥","🎀","🥂"
+],
 
-9: ["🎉","🔥","🎂","🎈","✨","★","🎀","❤️","🔥","🎉","🎂","✨","🎈","❤️","★","🎀","🔥","🎉"],
+9: [
+"🎉","🔥","🎂","🎈","🍻","🍹","💃","🕺",
+"🎵","🎀","✨","★","🥂","🔥","🎊",
+"🎈","🎉","🍸","💃","🎂","♥","🎵"
+],
 
-10: ["🎉","🎊","🎈","🎆","✨","🎀","❤️","🖤","🎉","🎊","🎆","✨","🎈","❤️","🎇","🎉","🎊","✨"]
+10: [
+"🎉","🎊","🎈","🎆","✨","🎀","❤️","🖤",
+"💃","🕺","🍹","🥂","🍸","🎂","🎵",
+"🎁","🎈","🎉","🎊","✨","🔥","♥",
+"💃","🕺","🍻","🎀","🎆","🎉","🎈"
+]
 
 };
 
 
 /* =========================================
-   GET CLUE NUMBER
+   GET CURRENT CLUE
    ========================================= */
 
-const params = new URLSearchParams(window.location.search);
+const params =
+    new URLSearchParams(window.location.search);
 
 let activeNumber =
     parseInt(params.get("clue")) || 1;
@@ -896,7 +871,46 @@ document.getElementById(
 
 
 /* =========================================
-   RANDOM DECORATIONS
+   DECORATION COUNT
+   Based on how much content the clue has.
+   Shorter clues = MORE decorations.
+   ========================================= */
+
+const clueContainer =
+    document.querySelector(".card");
+
+const cardHeight =
+    clueContainer.getBoundingClientRect().height;
+
+let decorationCount;
+
+
+/*
+   Short cards get lots of decorations.
+   Long cards get slightly fewer.
+*/
+
+if (cardHeight < 430) {
+
+    decorationCount = 34;
+
+} else if (cardHeight < 520) {
+
+    decorationCount = 28;
+
+} else if (cardHeight < 620) {
+
+    decorationCount = 23;
+
+} else {
+
+    decorationCount = 18;
+
+}
+
+
+/* =========================================
+   CREATE RANDOM DECORATIONS
    ========================================= */
 
 const decorationContainer =
@@ -905,58 +919,94 @@ const decorationContainer =
 const currentSet =
     decorationSets[activeNumber];
 
-const sizes = [
-    "tiny",
-    "small",
-    "small",
-    "medium",
-    "medium",
-    "large",
-    "huge"
+const sizeOptions = [
+    14, 17, 20, 23, 27, 31, 36, 42
 ];
 
-for (let i = 0; i < currentSet.length; i++) {
+
+for (let i = 0; i < decorationCount; i++) {
 
     const decoration =
         document.createElement("span");
 
     decoration.className =
-        "decoration " +
-        sizes[Math.floor(Math.random() * sizes.length)];
+        "decoration";
 
     decoration.textContent =
-        currentSet[i];
+        currentSet[
+            Math.floor(
+                Math.random() * currentSet.length
+            )
+        ];
+
 
     /*
-       Random position across the
-       entire phone screen.
+       Truly random position.
     */
 
     decoration.style.left =
-        (Math.random() * 94 + 3) + "%";
+        (2 + Math.random() * 94) + "%";
 
     decoration.style.top =
-        (Math.random() * 92 + 2) + "%";
+        (2 + Math.random() * 94) + "%";
+
+
+    /*
+       Truly random size.
+    */
+
+    decoration.style.setProperty(
+        "--size",
+        sizeOptions[
+            Math.floor(
+                Math.random() * sizeOptions.length
+            )
+        ] + "px"
+    );
+
+
+    /*
+       Random transparency.
+    */
+
+    decoration.style.setProperty(
+        "--opacity",
+        (0.42 + Math.random() * 0.45)
+    );
+
+
+    /*
+       Random movement speed.
+    */
 
     decoration.style.setProperty(
         "--float-time",
-        (3.5 + Math.random() * 3) + "s"
+        (3 + Math.random() * 4) + "s"
     );
 
     decoration.style.setProperty(
-        "--wiggle-time",
-        (3 + Math.random() * 3) + "s"
+        "--sway-time",
+        (2.5 + Math.random() * 3) + "s"
     );
+
+
+    /*
+       Random starting delay.
+    */
+
+    decoration.style.animationDelay =
+        (Math.random() * 3) + "s";
+
+
+    /*
+       Random rotation.
+    */
 
     decoration.style.setProperty(
-        "--delay",
-        (Math.random() * 3) + "s"
+        "--rotation",
+        ((Math.random() * 30) - 15) + "deg"
     );
 
-    decoration.style.transform =
-        "rotate(" +
-        ((Math.random() * 30) - 15) +
-        "deg)";
 
     decorationContainer.appendChild(
         decoration
@@ -965,7 +1015,7 @@ for (let i = 0; i < currentSet.length; i++) {
 
 
 /* =========================================
-   REAL EXPLODING FIREWORKS
+   FIREWORK GENERATOR
    ========================================= */
 
 function createFirework() {
@@ -977,45 +1027,59 @@ function createFirework() {
         document.createElement("div");
 
     burst.className =
-        "firework-burst";
+        "firework";
+
 
     /*
-       Keep fireworks around the edges
-       so they don't cover the message.
+       Fireworks around the upper
+       and outer parts of the screen.
     */
 
     const x =
-        Math.random() < 0.5
-        ? Math.random() * 25 + 5
-        : Math.random() * 25 + 70;
+        8 + Math.random() * 84;
 
     const y =
-        Math.random() * 25 + 5;
+        5 + Math.random() * 38;
 
-    burst.style.left = x + "%";
-    burst.style.top = y + "%";
+
+    burst.style.left =
+        x + "%";
+
+    burst.style.top =
+        y + "%";
+
+
+    const colours = [
+        "#e63946",
+        "#9b5de5",
+        "#00a6c7",
+        "#e85d04",
+        "#55a630",
+        "#ff69b4",
+        "#ffd166",
+        "#ffffff"
+    ];
+
 
     burst.style.background =
-        themes[activeNumber];
+        colours[
+            Math.floor(
+                Math.random() * colours.length
+            )
+        ];
+
 
     fireworks.appendChild(burst);
 
 
     /*
-       Create the individual sparks.
+       Large radial burst.
     */
 
-    const sparkColours = [
-        "#e63946",
-        "#f4a261",
-        "#9b5de5",
-        "#00a6c7",
-        "#55a630",
-        "#ff69b4",
-        "#ffd166"
-    ];
+    const sparkCount = 30;
 
-    for (let i = 0; i < 18; i++) {
+
+    for (let i = 0; i < sparkCount; i++) {
 
         const spark =
             document.createElement("span");
@@ -1023,35 +1087,44 @@ function createFirework() {
         spark.className =
             "firework-spark";
 
-        spark.style.left = x + "%";
-        spark.style.top = y + "%";
+
+        spark.style.left =
+            x + "%";
+
+        spark.style.top =
+            y + "%";
+
 
         spark.style.background =
-            sparkColours[
+            colours[
                 Math.floor(
-                    Math.random() *
-                    sparkColours.length
+                    Math.random() * colours.length
                 )
             ];
 
+
         spark.style.setProperty(
             "--angle",
-            (i * 20) + "deg"
+            (i * (360 / sparkCount)) + "deg"
         );
+
 
         spark.style.setProperty(
             "--distance",
-            (35 + Math.random() * 35) + "px"
+            (55 + Math.random() * 75) + "px"
         );
 
+
         spark.style.animationDelay =
-            (Math.random() * 0.15) + "s";
+            (Math.random() * 0.18) + "s";
+
 
         fireworks.appendChild(spark);
 
+
         setTimeout(() => {
             spark.remove();
-        }, 1800);
+        }, 1900);
     }
 
 
@@ -1062,16 +1135,34 @@ function createFirework() {
 
 
 /* =========================================
-   ONLY SHOW FIREWORKS ON FINAL CLUE
+   FINAL PAGE FIREWORKS
    ========================================= */
 
 if (activeNumber === 10) {
 
+    /*
+       Start several immediately so the
+       final page feels like a celebration.
+    */
+
     createFirework();
 
+    setTimeout(createFirework, 350);
+
+    setTimeout(createFirework, 700);
+
+    setTimeout(createFirework, 1100);
+
+
+    /*
+       Keep launching fireworks.
+    */
+
     setInterval(() => {
+
         createFirework();
-    }, 1300);
+
+    }, 900);
 
 }
 
