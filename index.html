@@ -1638,6 +1638,55 @@ if (
 
 
 /* =========================================================
+   GET CLUE NUMBER
+========================================================= */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+let clueNumber =
+  parseInt(
+    params.get("clue")
+  );
+
+
+if (
+  isNaN(clueNumber) ||
+  clueNumber < 1 ||
+  clueNumber > 10
+) {
+
+  clueNumber = 1;
+
+}
+
+
+/* =========================================================
+   SECRET SEQUENCE CHECK
+========================================================= */
+
+let unlockedClue =
+  parseInt(
+    localStorage.getItem(
+      "treasureHuntUnlockedClue"
+    )
+  );
+
+
+if (
+  isNaN(unlockedClue) ||
+  unlockedClue < 1
+) {
+
+  unlockedClue = 1;
+
+}
+
+
+/* =========================================================
    LOAD CLUE
 ========================================================= */
 
@@ -1647,8 +1696,60 @@ const container =
   );
 
 
-container.innerHTML =
-  clues[clueNumber];
+if (clueNumber > unlockedClue) {
+
+  /*
+     Future clue scanned too early.
+     Do not reveal the clue.
+  */
+
+  container.innerHTML = `
+    <div class="card">
+
+      <div class="statement">
+        😂 Nice try!
+      </div>
+
+      <div class="clue">
+        <p>That clue isn't ready yet.</p>
+        <p>Keep hunting!</p>
+      </div>
+
+    </div>
+  `;
+
+  /*
+     Use the currently unlocked clue's
+     theme and decorations.
+  */
+
+  clueNumber = unlockedClue;
+
+} else {
+
+  /*
+     Normal clue loading.
+  */
+
+  container.innerHTML =
+    clues[clueNumber];
+
+
+  /*
+     Unlock the next clue after
+     successfully reaching this one.
+  */
+
+  if (clueNumber === unlockedClue) {
+
+    localStorage.setItem(
+      "treasureHuntUnlockedClue",
+      clueNumber + 1
+    );
+
+  }
+
+}
 
 
 /* =========================================================
@@ -1690,7 +1791,6 @@ window.addEventListener(
 
   }
 );
-
 
 </script>
 
