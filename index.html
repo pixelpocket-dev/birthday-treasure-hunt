@@ -1638,33 +1638,6 @@ if (
 
 
 /* =========================================================
-   GET CLUE NUMBER
-========================================================= */
-
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
-
-
-let clueNumber =
-  parseInt(
-    params.get("clue")
-  );
-
-
-if (
-  isNaN(clueNumber) ||
-  clueNumber < 1 ||
-  clueNumber > 10
-) {
-
-  clueNumber = 1;
-
-}
-
-
-/* =========================================================
    SECRET SEQUENCE CHECK
 ========================================================= */
 
