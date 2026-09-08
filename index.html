@@ -45,51 +45,61 @@ body {
 
 
 /* =========================================================
-   ORIGINAL COLOUR SCHEMES — LOCKED
+   COLOUR SCHEMES — AS REQUESTED
 ========================================================= */
 
+/* 1 — Pink + Coral */
 body.theme1 {
-  background: linear-gradient(135deg, #ffdce5, #fff3e8);
+  background: linear-gradient(135deg, #ffd1dc, #ffaaa0);
 }
 
+/* 2 — Purple + Pink */
 body.theme2 {
-  background: linear-gradient(135deg, #e8dcff, #ffdff0);
+  background: linear-gradient(135deg, #d1baff, #f2b8d5);
 }
 
+/* 3 — Blue + Turquoise */
 body.theme3 {
-  background: linear-gradient(135deg, #c9f3ff, #dfffe9);
+  background: linear-gradient(135deg, #b9e7ff, #a9eee1);
 }
 
+/* 4 — Peach + Pink */
 body.theme4 {
-  background: linear-gradient(135deg, #ffe1cf, #ffd6e8);
+  background: linear-gradient(135deg, #ffd0b5, #f6bfd5);
 }
 
+/* 5 — Red + Orange */
 body.theme5 {
-  background: linear-gradient(135deg, #ffd1c1, #ffe8b8);
+  background: linear-gradient(135deg, #ffaaa0, #ffc36f);
 }
 
+/* 6 — Lavender + Pink */
 body.theme6 {
-  background: linear-gradient(135deg, #e5d6ff, #ffd9f0);
+  background: linear-gradient(135deg, #d9c8ff, #f4c4dd);
 }
 
+/* 7 — Baby Blue + Lilac */
 body.theme7 {
-  background: linear-gradient(135deg, #d7efff, #e7ddff);
+  background: linear-gradient(135deg, #c7e9ff, #ddd0f4);
 }
 
+/* 8 — Green + Yellow */
 body.theme8 {
-  background: linear-gradient(135deg, #d9f5c8, #fff2b8);
+  background: linear-gradient(135deg, #c8edb0, #fff0a4);
 }
 
+/* 9 — Orange + Red */
 body.theme9 {
-  background: linear-gradient(135deg, #ffd0a8, #ffb8a8);
+  background: linear-gradient(135deg, #ffc06f, #ff9585);
 }
 
+/* 10 — Pink + Red + Silver */
 body.theme10 {
   background: linear-gradient(
     135deg,
-    #ffcad8,
-    #ffd9e9,
-    #fff0c7
+    #ffc0d0,
+    #ff9eb5,
+    #eeeeF2
   );
 }
 
@@ -176,11 +186,6 @@ body.theme10 {
 .card {
 
   width: 100%;
-
-  /*
-     TRANSPARENT / FROSTED LOOK
-     — one of the later changes we liked
-  */
 
   background: rgba(255, 255, 255, 0.64);
 
@@ -401,12 +406,13 @@ body.theme10 {
 
   border-radius: 50%;
 
-  background: var(--accent);
+  background: var(--fireworkColor);
 
   transform-origin: 50% 100%;
 
   animation:
     explode 1.55s ease-out forwards;
+
 }
 
 @keyframes explode {
@@ -948,30 +954,30 @@ const clues = {
 
 
 /* =========================================================
-   ORIGINAL ACCENT COLOURS — LOCKED
+   ACCENT COLOURS — MATCHING EACH SCHEME
 ========================================================= */
 
 const themes = {
 
-  1: "#e63946",
+  1: "#e84f6b",
 
-  2: "#9b5de5",
+  2: "#8d49b8",
 
-  3: "#00a6c7",
+  3: "#078cac",
 
-  4: "#e76f51",
+  4: "#df6f59",
 
-  5: "#e85d04",
+  5: "#d84232",
 
-  6: "#9b5de5",
+  6: "#8b68bd",
 
-  7: "#6c63c7",
+  7: "#6974bd",
 
-  8: "#55a630",
+  8: "#529f35",
 
-  9: "#e85d04",
+  9: "#df4f31",
 
-  10: "#d62839"
+  10: "#c72b4d"
 
 };
 
@@ -1208,11 +1214,6 @@ function createDecorations() {
     card.getBoundingClientRect();
 
 
-  /*
-     The shorter the card,
-     the more decorations we create.
-  */
-
   const cardRatio =
     (cardRect.width * cardRect.height) /
     (window.innerWidth * window.innerHeight);
@@ -1239,10 +1240,6 @@ function createDecorations() {
 
   }
 
-
-  /*
-     Final page gets extra birthday decorations.
-  */
 
   if (clueNumber === 10) {
 
@@ -1277,15 +1274,6 @@ function createDecorations() {
     let left;
     let top;
 
-
-    /*
-       Most decorations are placed
-       outside the card.
-
-       Some are allowed behind/around
-       the transparent card to create
-       the random look we liked.
-    */
 
     const placeOutside =
       Math.random() < 0.68;
@@ -1359,7 +1347,6 @@ function createDecorations() {
 
 
     } else {
-
 
       left =
         random(2, 96);
@@ -1458,8 +1445,18 @@ function createFirework(x, y) {
 
 
   /*
-     Large fireworks.
+     Pink + red + silver + white
+     for the final page.
   */
+
+  const fireworkColours = [
+    "#c72b4d",
+    "#e66a89",
+    "#a9afb8",
+    "#d8dbe0",
+    "#ffffff"
+  ];
+
 
   const sparkCount = 38;
 
@@ -1499,6 +1496,17 @@ function createFirework(x, y) {
     );
 
 
+    spark.style.setProperty(
+      "--fireworkColor",
+      fireworkColours[
+        Math.floor(
+          Math.random() *
+          fireworkColours.length
+        )
+      ]
+    );
+
+
     spark.style.animationDelay =
       random(0, 0.12) + "s";
 
@@ -1532,12 +1540,6 @@ function startFireworks() {
 
   }
 
-
-  /*
-     Fireworks are kept around
-     the edges so they don't cover
-     the final message.
-  */
 
   const positions = [
 
@@ -1634,7 +1636,7 @@ container.innerHTML =
 
 
 /* =========================================================
-   APPLY ORIGINAL THEME
+   APPLY THEME
 ========================================================= */
 
 document.body.classList.add(
