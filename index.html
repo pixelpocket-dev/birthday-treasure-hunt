@@ -1496,15 +1496,10 @@ function createFirework(x, y) {
     );
 
 
-    spark.style.setProperty(
-      "--fireworkColor",
-      fireworkColours[
-        Math.floor(
-          Math.random() *
-          fireworkColours.length
-        )
-      ]
-    );
+spark.style.setProperty(
+  "--fireworkColor",
+  fireworkColor
+);
 
 
     spark.style.animationDelay =
