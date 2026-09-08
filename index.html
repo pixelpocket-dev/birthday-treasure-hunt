@@ -1450,15 +1450,24 @@ function createFirework(x, y) {
   */
 
   const fireworkColours = [
-    "#c72b4d",
-    "#e66a89",
-    "#a9afb8",
-    "#d8dbe0",
-    "#ffffff"
+  "#c72b4d",
+  "#e66a89",
+  "#a9afb8",
+  "#d8dbe0",
+  "#ffffff"
+];
+
+
+const fireworkColor =
+  fireworkColours[
+    Math.floor(
+      Math.random() *
+      fireworkColours.length
+    )
   ];
 
 
-  const sparkCount = 38;
+const sparkCount = 38;
 
 
   for (
